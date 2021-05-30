@@ -19,7 +19,7 @@ import CartLogo from "../util/Cart.svg";
 export default class Navbar extends Component {
   render() {
     return (
-      <div className="nav-container">
+      <nav className="nav-container">
         <ul className="categories">
           <li>women</li>
           <li>men</li>
@@ -32,7 +32,7 @@ export default class Navbar extends Component {
           <img className="currency" src={CurrencyLogo} alt="currency" />
           <img className="cart" src={CartLogo} alt="cart" />
         </div>
-      </div>
+      </nav>
     );
   }
 }

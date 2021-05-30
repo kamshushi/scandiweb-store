@@ -25,7 +25,6 @@
 .nav-container .categories li:hover {
   border-bottom: 3px solid #5ece7b;
   color: #5ece7b;
-  transition: 0.3s;
 }
 /* Logo */
 .nav-container .logo img {
