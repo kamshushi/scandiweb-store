@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import "../styles/navbar.css";
 //util
-import StoreLogo from "../util/Brand icon.svg";
-import CurrencyLogo from "../util/Currency.png";
-import CartLogo from "../util/Cart.svg";
+import StoreLogo from "../icons/Brand icon.svg";
+import CurrencyLogo from "../icons/Currency.png";
+import CartLogo from "../icons/Cart.svg";
 // const Nav = styled.div`
 //   background-color: black;
 //   height: 80px;

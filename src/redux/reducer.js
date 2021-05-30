@@ -1,21 +1,25 @@
-import { SET_PRODUCTS } from "./actionTypes";
+import { SET_PRODUCTS, SET_LOADING, STOP_LOADING } from "./actionTypes";
 const initialState = {
   products: {},
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: true,
+      };
     case SET_PRODUCTS:
       return {
         ...state,
-        products: action.payload,
+        name: action.payload.name,
+        products: action.payload.products,
       };
-
-    case "YO":
+    case STOP_LOADING:
       return {
         ...state,
-        yo: "yo",
+        loading: false,
       };
-
     default:
       return state;
   }

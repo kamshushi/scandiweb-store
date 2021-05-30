@@ -16,9 +16,6 @@ const Container = styled.div`
   margin: auto;
 `;
 class App extends Component {
-  componentDidMount() {
-    store.dispatch({ type: "YO" });
-  }
   render() {
     return (
       <Provider store={store}>
