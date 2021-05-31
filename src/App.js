@@ -22,7 +22,6 @@ class App extends Component {
         <div className="App">
           <Container>
             <Navbar />
-            <h1 className="main-header">Category name</h1>
             <ProductsList />
           </Container>
         </div>

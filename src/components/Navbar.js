@@ -5,6 +5,10 @@ import "../styles/navbar.css";
 import StoreLogo from "../icons/Brand icon.svg";
 import CurrencyLogo from "../icons/Currency.png";
 import CartLogo from "../icons/Cart.svg";
+//redux
+import { connect } from "react-redux";
+import store from "../redux/store";
+import { SET_CATEGORY } from "../redux/actionTypes";
 // const Nav = styled.div`
 //   background-color: black;
 //   height: 80px;
@@ -16,14 +20,29 @@ import CartLogo from "../icons/Cart.svg";
 // const Logo = styled.div``;
 // const Actions = styled.div``;
 
-export default class Navbar extends Component {
+const setCategory = (e) => {
+  store.dispatch({ type: SET_CATEGORY, payload: e.target.id });
+};
+class Navbar extends Component {
   render() {
+    const { categories, currencies } = this.props;
     return (
       <nav className="nav-container">
         <ul className="categories">
-          <li>women</li>
-          <li>men</li>
-          <li>kids</li>
+          {/* <li id="clothes" onClick={setCategory}>
+            clothes
+          </li>
+          <li id="tech" onClick={setCategory}>
+            tech
+          </li> */}
+          {categories &&
+            categories.map((category) => {
+              return (
+                <li id={category} onClick={setCategory}>
+                  {category}
+                </li>
+              );
+            })}
         </ul>
         <div className="logo">
           <img src={StoreLogo} alt="logo" />
@@ -36,3 +55,16 @@ export default class Navbar extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  const currencies =
+    state.products && state.products[0].prices.map((price) => price.currency);
+  const allCategories =
+    state.products && state.products.map((product) => product.category);
+  const uniqueCategories = [...new Set(allCategories)];
+  console.log(uniqueCategories);
+  return {
+    currencies: currencies,
+    categories: uniqueCategories,
+  };
+};
+export default connect(mapStateToProps)(Navbar);

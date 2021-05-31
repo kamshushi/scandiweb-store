@@ -21,6 +21,7 @@
 .nav-container .categories li {
   display: inline-block;
   padding: 30px 15px;
+  cursor: pointer;
 }
 .nav-container .categories li:hover {
   border-bottom: 3px solid #5ece7b;
@@ -38,8 +39,10 @@
   padding: 15px 10px;
 }
 .nav-container .actions .currency {
+  cursor: pointer;
 }
 .nav-container .actions .cart {
+  cursor: pointer;
   padding-bottom: 20px;
   padding-right: 0px;
 }

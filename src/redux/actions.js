@@ -7,7 +7,7 @@ export const getProducts = () => (dispatch) => {
   client
     .post(categoryQuery)
     .then((res) => {
-      console.log(res.category);
+      console.log(res.category.products);
       dispatch({ type: SET_PRODUCTS, payload: res.category });
       dispatch({ type: STOP_LOADING });
     })

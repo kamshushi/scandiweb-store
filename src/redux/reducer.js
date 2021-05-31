@@ -1,4 +1,9 @@
-import { SET_PRODUCTS, SET_LOADING, STOP_LOADING } from "./actionTypes";
+import {
+  SET_PRODUCTS,
+  SET_LOADING,
+  STOP_LOADING,
+  SET_CATEGORY,
+} from "./actionTypes";
 const initialState = {
   products: {},
 };
@@ -14,11 +19,18 @@ const reducer = (state = initialState, action) => {
         ...state,
         name: action.payload.name,
         products: action.payload.products,
+        category: "tech",
       };
     case STOP_LOADING:
       return {
         ...state,
         loading: false,
+      };
+
+    case SET_CATEGORY:
+      return {
+        ...state,
+        category: action.payload,
       };
     default:
       return state;
