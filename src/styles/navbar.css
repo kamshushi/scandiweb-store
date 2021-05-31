@@ -21,9 +21,11 @@
 .nav-container .categories li {
   display: inline-block;
   padding: 30px 15px;
+  margin-right: 10px;
   cursor: pointer;
 }
-.nav-container .categories li:hover {
+.nav-container .categories li:hover,
+.nav-container .categories li.active {
   border-bottom: 3px solid #5ece7b;
   color: #5ece7b;
 }
@@ -34,15 +36,50 @@
 /* Actions */
 .nav-container .actions {
   margin-left: 40px;
+  margin-top: 20px;
 }
-.nav-container .actions img {
-  padding: 15px 10px;
-}
-.nav-container .actions .currency {
+.nav-container .actions span {
+  font-size: 22px;
+  padding-right: 4px;
   cursor: pointer;
 }
-.nav-container .actions .cart {
+.nav-container .actions .currency-container {
+  display: inline-block;
+  margin-right: 20px;
+  position: relative;
+}
+.nav-container .actions span:hover {
+  color: #5ece7b;
+}
+
+/* .nav-container .actions .currency-container .currency-logo {
+  position: relative;
+  cursor: pointer;
+} */
+.nav-container .actions .currency-container .currencies {
+  list-style: none;
+  padding: 0;
+  position: absolute;
+  box-shadow: 0px 0px 32px 2px rgb(168, 172, 176, 0.19);
+  padding: 0 40px 0 20px;
+  top: 35px;
+  left: -15px;
+  width: 62px;
+  display: none;
+}
+.nav-container .actions .currency-container .currencies.show {
+  display: block;
+}
+.nav-container .actions .currency-container .currencies li {
+  margin: 20px 0;
+}
+.nav-container .actions .currency-container .currencies li:hover {
+  color: #5ece7b;
+  cursor: pointer;
+}
+
+/* .nav-container .actions .cart {
   cursor: pointer;
   padding-bottom: 20px;
   padding-right: 0px;
-}
+} */

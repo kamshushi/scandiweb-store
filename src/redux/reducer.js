@@ -3,6 +3,7 @@ import {
   SET_LOADING,
   STOP_LOADING,
   SET_CATEGORY,
+  SET_CURRENCY,
 } from "./actionTypes";
 const initialState = {
   products: {},
@@ -19,7 +20,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         name: action.payload.name,
         products: action.payload.products,
-        category: "tech",
+        category: "clothes",
+        currency: 0,
       };
     case STOP_LOADING:
       return {
@@ -31,6 +33,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         category: action.payload,
+      };
+    case SET_CURRENCY:
+      return {
+        ...state,
+        currency: action.payload,
       };
     default:
       return state;

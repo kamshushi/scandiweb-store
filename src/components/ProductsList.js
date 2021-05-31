@@ -6,6 +6,8 @@ import CircleIcon from "../icons/Circle Icon.svg";
 import { connect } from "react-redux";
 import store from "../redux/store";
 import { getProducts } from "../redux/actions";
+//util
+import { getCurrencySymbol } from "../util/currencySymbols";
 
 class ProductsList extends Component {
   constructor(props) {
@@ -15,12 +17,11 @@ class ProductsList extends Component {
     this.props.fetchProducts();
   }
   render() {
-    const { products, loading, currentCategory } = this.props;
+    const { products, loading, currentCategory, currency } = this.props;
 
     const filteredProducts = products
       ? products.filter((product) => product.category === currentCategory)
       : [];
-    console.log(loading);
     return (
       <section className="products-section">
         <h1 className="main-header">{currentCategory}</h1>
@@ -28,6 +29,9 @@ class ProductsList extends Component {
           {!loading ? (
             products &&
             filteredProducts.map((product) => {
+              const currencySymbol = getCurrencySymbol(
+                product.prices[currency].currency
+              );
               return (
                 <div key={product.name} className="product-container">
                   <div className={`out-of-stock ${!product.inStock && "show"}`}>
@@ -38,7 +42,9 @@ class ProductsList extends Component {
                     <img className="icon" src={CircleIcon} alt="img" />
                   </div>
                   <p className="product-name">{product.name}</p>
-                  <p className="product-price">${product.prices[0].amount}</p>
+                  <p className="product-price">
+                    {`${currencySymbol} ${product.prices[currency].amount}`}
+                  </p>
                 </div>
               );
             })
@@ -56,6 +62,7 @@ const mapStateToProps = (state) => {
     products: state.products,
     loading: state.loading,
     currentCategory: state.category,
+    currency: state.currency,
   };
 };
 const mapDispatchToProps = (dispatch) => {

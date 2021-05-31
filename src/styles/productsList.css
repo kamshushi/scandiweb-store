@@ -9,6 +9,7 @@
   gap: 103px 40px;
   font-size: 18px;
   position: relative;
+  margin-bottom: 191px;
 }
 .product-container {
   padding: 15px;
@@ -35,7 +36,7 @@
   font-weight: 600;
 }
 .product-container:hover {
-  box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.4);
+  box-shadow: 0px 4px 35px rgba(191, 196, 200, 0.4);
 }
 .product-container .img-holder:hover .icon {
   display: block;
