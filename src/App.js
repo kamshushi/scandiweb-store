@@ -1,12 +1,15 @@
 //React stuff
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 //Redux
-import { Provider } from "react-redux";
+import { Provider, connect } from "react-redux";
 import store from "./redux/store";
+import { getProducts } from "./redux/actions";
 //components
 import Navbar from "./components/Navbar";
 import ProductsList from "./components/ProductsList";
+import Product from "./components/Product";
 //styles
 import "./App.css";
 
@@ -16,18 +19,27 @@ const Container = styled.div`
   margin: auto;
 `;
 class App extends Component {
+  componentDidMount() {
+    this.props.fetchProducts();
+  }
   render() {
     return (
-      <Provider store={store}>
-        <div className="App">
+      <div className="App">
+        <Router>
           <Container>
             <Navbar />
-            <ProductsList />
+            <Route exact path="/" component={ProductsList} />
+            <Route exact path="/product/:name" component={Product} />
           </Container>
-        </div>
-      </Provider>
+        </Router>
+      </div>
     );
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchProducts: () => dispatch(getProducts()),
+  };
+};
+export default connect(null, mapDispatchToProps)(App);

@@ -3,7 +3,10 @@ body {
   position: relative;
   font-family: "Raleway", sans-serif;
 }
-
+a {
+  text-decoration: none;
+  color: unset;
+}
 /* .App-header {
   background-color: #282c34;
   min-height: 100vh;

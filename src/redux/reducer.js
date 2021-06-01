@@ -18,10 +18,9 @@ const reducer = (state = initialState, action) => {
     case SET_PRODUCTS:
       return {
         ...state,
-        name: action.payload.name,
         products: action.payload.products,
-        category: "clothes",
-        currency: 0,
+        currentCategory: "clothes",
+        currencyIndex: 0,
       };
     case STOP_LOADING:
       return {
@@ -32,12 +31,12 @@ const reducer = (state = initialState, action) => {
     case SET_CATEGORY:
       return {
         ...state,
-        category: action.payload,
+        currentCategory: action.payload,
       };
     case SET_CURRENCY:
       return {
         ...state,
-        currency: action.payload,
+        currencyIndex: action.payload,
       };
     default:
       return state;

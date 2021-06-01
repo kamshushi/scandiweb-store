@@ -1,20 +1,17 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 import "../styles/navbar.css";
+import { Link } from "react-router-dom";
 //icons
 import StoreLogo from "../icons/Brand icon.svg";
 import ArrowDown from "../icons/arrow down.svg";
 import CartLogo from "../icons/Cart.svg";
 //util
-import { getCurrencySymbol } from "../util/currencySymbols";
+import getCurrencySymbol from "../util/getCurrencySymbol";
 //redux
 import { connect } from "react-redux";
 import store from "../redux/store";
 import { SET_CATEGORY, SET_CURRENCY } from "../redux/actionTypes";
 
-const setCategory = (e) => {
-  store.dispatch({ type: SET_CATEGORY, payload: e.target.id });
-};
 class Navbar extends Component {
   constructor(props) {
     super(props);
@@ -23,9 +20,18 @@ class Navbar extends Component {
     };
   }
   hideCurrencies = (e) => {
-    if (!e.target.matches(".currency-logo")) {
+    if (!e.target.matches(".currency-logo, .arrow-down")) {
       this.setState({ showCurrencies: false });
     }
+  };
+  toggleCurrencies = () => {
+    this.setState({
+      showCurrencies: !this.state.showCurrencies,
+    });
+  };
+  //Set current category
+  setCategory = (e) => {
+    store.dispatch({ type: SET_CATEGORY, payload: e.target.id });
   };
   componentDidMount() {
     window.addEventListener("click", this.hideCurrencies);
@@ -34,11 +40,6 @@ class Navbar extends Component {
     window.removeEventListener("click", this.hideCurrencies);
   }
   render() {
-    const toggleCurrencies = () => {
-      this.setState({
-        showCurrencies: !this.state.showCurrencies,
-      });
-    };
     const {
       categories,
       currencies,
@@ -46,42 +47,60 @@ class Navbar extends Component {
       currencyIndex,
       currentCategory,
     } = this.props;
+    //categories List
+    const categoriesMarkup =
+      categories &&
+      categories.map((category, index) => {
+        return (
+          <Link key={index} to="/">
+            <li
+              className={currentCategory === category ? "active" : ""}
+              id={category}
+              onClick={this.setCategory}
+            >
+              {category}
+            </li>
+          </Link>
+        );
+      });
+    //currencies List
+    const currenciesMarkup =
+      currencies &&
+      currencies.map((currency, index) => {
+        return (
+          <li onClick={setCurrency} key={index} id={index}>
+            {`${getCurrencySymbol(currency)} ${currency}`}
+          </li>
+        );
+      });
     return (
       <nav className="nav-container">
-        <ul className="categories">
-          {categories &&
-            categories.map((category, index) => {
-              return (
-                <li
-                  className={currentCategory === category ? "active" : ""}
-                  key={index}
-                  id={category}
-                  onClick={setCategory}
-                >
-                  {category}
-                </li>
-              );
-            })}
-        </ul>
+        {/* Categories */}
+        <ul className="categories">{categoriesMarkup}</ul>
+        {/* Store logo */}
         <div className="logo">
-          <img src={StoreLogo} alt="logo" />
+          <Link to="/">
+            <img src={StoreLogo} alt="logo" />
+          </Link>
         </div>
+        {/* Currencies and Cart */}
         <div className="actions">
-          <div onClick={toggleCurrencies} className="currency-container">
-            {/* <img className="currency-logo" src={CurrencyLogo} alt="currency" /> */}
-            <span className="currency-logo">
+          <div className="currency-container">
+            <span onClick={this.toggleCurrencies} className="currency-logo">
               {currencies && getCurrencySymbol(currencies[currencyIndex])}
             </span>
-            <img src={ArrowDown} alt="arrow" />
-            <ul className={`currencies ${this.state.showCurrencies && "show"}`}>
-              {currencies &&
-                currencies.map((currency, index) => {
-                  return (
-                    <li onClick={setCurrency} key={index} id={index}>
-                      {`${getCurrencySymbol(currency)} ${currency}`}
-                    </li>
-                  );
-                })}
+            <img
+              onClick={this.toggleCurrencies}
+              className="arrow-down"
+              src={ArrowDown}
+              alt="arrow"
+            />
+            <ul
+              className={`currencies ${
+                this.state.showCurrencies ? "show" : ""
+              }`}
+            >
+              {currenciesMarkup}
             </ul>
           </div>
           <img className="cart" src={CartLogo} alt="cart" />
@@ -90,17 +109,19 @@ class Navbar extends Component {
     );
   }
 }
+
+//mapping state and dispatch actions to props
 const mapStateToProps = (state) => {
+  const { products } = state;
   const currencies =
-    state.products && state.products[0].prices.map((price) => price.currency);
-  const allCategories =
-    state.products && state.products.map((product) => product.category);
+    products && products[0].prices.map((price) => price.currency);
+  const allCategories = products && products.map((product) => product.category);
   const uniqueCategories = [...new Set(allCategories)];
   return {
     currencies: currencies,
     categories: uniqueCategories,
-    currencyIndex: state.currency,
-    currentCategory: state.category,
+    currencyIndex: state.currencyIndex,
+    currentCategory: state.currentCategory,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -108,4 +129,5 @@ const mapDispatchToProps = (dispatch) => {
     setCurrency: (e) => dispatch({ type: SET_CURRENCY, payload: e.target.id }),
   };
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

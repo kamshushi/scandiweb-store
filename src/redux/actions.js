@@ -7,12 +7,12 @@ export const getProducts = () => (dispatch) => {
   client
     .post(categoryQuery)
     .then((res) => {
-      console.log(res.category.products);
+      console.log(res.category.products[0]);
       dispatch({ type: SET_PRODUCTS, payload: res.category });
       dispatch({ type: STOP_LOADING });
     })
     .catch((err) => {
-      dispatch(STOP_LOADING);
+      dispatch({ type: STOP_LOADING });
       console.log(err);
     });
 };

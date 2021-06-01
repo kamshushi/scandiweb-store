@@ -1,4 +1,4 @@
-export const getCurrencySymbol = (currency) => {
+const getCurrencySymbol = (currency) => {
   switch (currency) {
     case "USD":
       return "$";
@@ -14,3 +14,4 @@ export const getCurrencySymbol = (currency) => {
       return null;
   }
 };
+export default getCurrencySymbol;

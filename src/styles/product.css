@@ -1,0 +1,33 @@
+.product-section .product-grid-container {
+  display: grid;
+  grid-template-columns: 80px 6fr 4fr;
+  height: 800px;
+  margin-top: 100px;
+}
+.product-grid-container div {
+  border: 1px solid black;
+}
+
+/* left side images */
+.product-grid-container .img-list img {
+  height: 80px;
+  width: 80px;
+  object-fit: cover;
+  margin-bottom: 32px;
+}
+/* current image */
+.product-grid-container .current-image img {
+  display: block;
+  height: 513px;
+  width: 90%;
+  object-fit: cover;
+  margin: auto;
+}
+/* info */
+.product-grid-container .product-info {
+  padding-left: 50px;
+}
+
+.product-grid-container .product-info h1 {
+  font-weight: bolder;
+}

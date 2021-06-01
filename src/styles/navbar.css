@@ -7,10 +7,6 @@
   color: #1d1f22;
   text-transform: uppercase;
 }
-.nav-container .categories,
-.nav-container .logo,
-.nav-container .actions {
-}
 
 /* Categories */
 .nav-container .categories {
@@ -26,7 +22,7 @@
 }
 .nav-container .categories li:hover,
 .nav-container .categories li.active {
-  border-bottom: 3px solid #5ece7b;
+  border-bottom: 2px solid #5ece7b;
   color: #5ece7b;
 }
 /* Logo */
@@ -38,25 +34,24 @@
   margin-left: 40px;
   margin-top: 20px;
 }
-.nav-container .actions span {
-  font-size: 22px;
-  padding-right: 4px;
-  cursor: pointer;
-}
 .nav-container .actions .currency-container {
   display: inline-block;
   margin-right: 20px;
   position: relative;
 }
-.nav-container .actions span:hover {
+.nav-container .actions .currency-container .currency-logo {
+  font-size: 22px;
+  padding-right: 4px;
+  cursor: pointer;
+}
+.nav-container .actions .currency-container .currency-logo:hover {
   color: #5ece7b;
 }
-
-/* .nav-container .actions .currency-container .currency-logo {
-  position: relative;
+.nav-container .actions .currency-container .arrow-down {
   cursor: pointer;
-} */
-.nav-container .actions .currency-container .currencies {
+}
+
+.nav-container .currency-container .currencies {
   list-style: none;
   padding: 0;
   position: absolute;
@@ -77,9 +72,3 @@
   color: #5ece7b;
   cursor: pointer;
 }
-
-/* .nav-container .actions .cart {
-  cursor: pointer;
-  padding-bottom: 20px;
-  padding-right: 0px;
-} */
