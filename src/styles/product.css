@@ -1,11 +1,11 @@
 .product-section .product-grid-container {
   display: grid;
-  grid-template-columns: 80px 6fr 4fr;
+  grid-template-columns: 80px 6fr 4fr 2fr;
   height: 800px;
   margin-top: 100px;
 }
-.product-grid-container div {
-  border: 1px solid black;
+.product-grid-container > div {
+  /* border: 1px solid black; */
 }
 
 /* left side images */
@@ -14,6 +14,7 @@
   width: 80px;
   object-fit: cover;
   margin-bottom: 32px;
+  cursor: pointer;
 }
 /* current image */
 .product-grid-container .current-image img {
@@ -25,9 +26,83 @@
 }
 /* info */
 .product-grid-container .product-info {
-  padding-left: 50px;
+  padding: 0 0 0 50px;
 }
 
 .product-grid-container .product-info h1 {
-  font-weight: bolder;
+  font-weight: 600;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+.product-grid-container .product-info h2 {
+  font-weight: 300;
+  font-size: 30px;
+  margin: 0 0 35px 0;
+}
+.product-grid-container .product-info h3 {
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+.product-grid-container .product-info .options {
+  list-style: none;
+  padding: unset;
+  overflow: auto;
+  margin: 5px 0 35px 0;
+}
+.product-grid-container .product-info .options .option {
+  float: left;
+  box-sizing: border-box;
+  display: flex;
+  min-width: 63px;
+  height: 45px;
+  color: rgb(166, 166, 166);
+  line-height: 45px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #a6a6a6;
+  margin-right: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  padding: 0 10px;
+}
+.product-grid-container .product-info .options .option.swatch {
+  border-radius: 10%;
+  height: 63px;
+  padding: 20px;
+  /* border: 4px solid rgb(44, 44, 44); */
+  text-decoration: underline;
+}
+.product-grid-container .product-info .options .option.swatch.active {
+  border-radius: 50%;
+}
+.product-grid-container .product-info .options .option.active {
+  background-color: rgb(29, 31, 34);
+  color: #fff;
+  transition: 0.2s ease;
+}
+.product-grid-container .product-info .price {
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 15px;
+}
+.product-grid-container .product-info .add-to-cart {
+  width: 98%;
+  height: 52px;
+  background-color: #5ece7b;
+  outline: 0;
+  border: 0;
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.product-grid-container .product-info .add-to-cart:hover {
+  background-color: #44a75e;
+}
+.product-grid-container .product-info .description {
+  margin-top: 40px;
+  font-weight: 600;
 }
