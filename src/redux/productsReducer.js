@@ -6,9 +6,9 @@ import {
   SET_CURRENCY,
 } from "./actionTypes";
 const initialState = {
-  products: {},
+  products: [],
 };
-const reducer = (state = initialState, action) => {
+const productsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_LOADING:
       return {
@@ -42,4 +42,4 @@ const reducer = (state = initialState, action) => {
       return state;
   }
 };
-export default reducer;
+export default productsReducer;

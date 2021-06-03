@@ -25,9 +25,9 @@
 }
 .product-container .img-holder .icon {
   position: absolute;
-  height: 60px;
+  height: 70px;
   right: 20px;
-  bottom: 85px;
+  bottom: 80px;
   display: none;
 }
 .product-container .product-name {

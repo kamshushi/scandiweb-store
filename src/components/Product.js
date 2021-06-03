@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { ADD_TO_CART } from "../redux/actionTypes";
 //styles
 import "../styles/product.css";
 //util
@@ -33,7 +35,12 @@ class Product extends Component {
     const currentProduct =
       products &&
       products.find((product) => product.name === this.state.productName);
-    console.log(currentProduct);
+    // product with user data and quantity of 1
+    const currentProductWithInfo = Object.assign(
+      { quantity: 1, userSelection: this.state.infoSelected },
+      currentProduct
+    );
+
     const {
       name,
       attributes,
@@ -43,10 +50,12 @@ class Product extends Component {
       inStock,
       prices,
     } = currentProduct ? currentProduct : {};
+    console.log(description);
     return (
       <section className="product-section">
         {currentProduct ? (
           <div className="product-grid-container">
+            {/* List of leftside images */}
             <div className="img-list">
               {gallery.map((photo, index) => (
                 <img
@@ -58,9 +67,11 @@ class Product extends Component {
                 />
               ))}
             </div>
+            {/* Main middle image */}
             <div className="current-image">
               <img src={gallery[this.state.currentImageIndex]} alt="img" />
             </div>
+            {/* product's title */}
             <div className="product-info">
               <h1>{name.split(" ")[0]}</h1>
               {name.split(" ").length !== 1 && (
@@ -93,7 +104,15 @@ class Product extends Component {
                                 : {}
                             }
                           >
-                            {type === "swatch" ? "" : item.value}
+                            {type === "swatch" ? (
+                              this.state.infoSelected[name] === item.value ? (
+                                <div className="selected-overlay">✓</div>
+                              ) : (
+                                ""
+                              )
+                            ) : (
+                              item.value
+                            )}
                           </li>
                         );
                       })}
@@ -107,8 +126,16 @@ class Product extends Component {
                   prices[currencyIndex].amount
                 }`}
               </p>
-              <button className="add-to-cart">add to cart</button>
-              <p className="description">{description}</p>
+              <Link
+                onClick={() => this.props.addToCart(currentProductWithInfo)}
+                to="/cart"
+              >
+                <button className="add-to-cart">add to cart</button>
+              </Link>
+              <div
+                className="description"
+                dangerouslySetInnerHTML={{ __html: description }}
+              ></div>
             </div>
           </div>
         ) : (
@@ -120,9 +147,14 @@ class Product extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    products: state.products,
-    currencyIndex: state.currencyIndex,
+    products: state.products.products,
+    currencyIndex: state.products.currencyIndex,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToCart: (product) => dispatch({ type: ADD_TO_CART, payload: product }),
   };
 };
 
-export default connect(mapStateToProps)(Product);
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

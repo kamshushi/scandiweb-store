@@ -10,6 +10,7 @@ import { getProducts } from "./redux/actions";
 import Navbar from "./components/Navbar";
 import ProductsList from "./components/ProductsList";
 import Product from "./components/Product";
+import Cart from "./components/Cart";
 //styles
 import "./App.css";
 
@@ -28,8 +29,11 @@ class App extends Component {
         <Router>
           <Container>
             <Navbar />
-            <Route exact path="/" component={ProductsList} />
-            <Route exact path="/product/:name" component={Product} />
+            <Switch>
+              <Route exact path="/" component={ProductsList} />
+              <Route exact path="/product/:name" component={Product} />
+              <Route exact path="/cart" component={Cart} />
+            </Switch>
           </Container>
         </Router>
       </div>

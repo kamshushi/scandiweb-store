@@ -112,16 +112,16 @@ class Navbar extends Component {
 
 //mapping state and dispatch actions to props
 const mapStateToProps = (state) => {
-  const { products } = state;
+  const { products } = state.products;
   const currencies =
-    products && products[0].prices.map((price) => price.currency);
+    products[0] && products[0].prices.map((price) => price.currency);
   const allCategories = products && products.map((product) => product.category);
   const uniqueCategories = [...new Set(allCategories)];
   return {
     currencies: currencies,
     categories: uniqueCategories,
-    currencyIndex: state.currencyIndex,
-    currentCategory: state.currentCategory,
+    currencyIndex: state.products.currencyIndex,
+    currentCategory: state.products.currentCategory,
   };
 };
 const mapDispatchToProps = (dispatch) => {

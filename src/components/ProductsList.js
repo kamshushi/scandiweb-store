@@ -59,10 +59,10 @@ class ProductsList extends Component {
 //mapping state and dispatch actions to props
 const mapStateToProps = (state) => {
   return {
-    products: state.products,
-    loading: state.loading,
-    currentCategory: state.currentCategory,
-    currencyIndex: state.currencyIndex,
+    products: state.products.products,
+    loading: state.products.loading,
+    currentCategory: state.products.currentCategory,
+    currencyIndex: state.products.currencyIndex,
   };
 };
 
