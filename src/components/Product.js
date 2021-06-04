@@ -15,6 +15,16 @@ class Product extends Component {
       infoSelected: {},
     };
   }
+  productIsInCart = (product) => {
+    const products = this.props.productsInCart;
+    console.log(products);
+    for (let i in products) {
+      if (products[i].name === product.name) {
+        return true;
+      }
+    }
+    return false;
+  };
   setInfoSelected = (e) => {
     this.setState({
       ...this.state,
@@ -31,7 +41,7 @@ class Product extends Component {
     });
   };
   render() {
-    const { products, currencyIndex } = this.props;
+    const { products, currencyIndex, productsInCart } = this.props;
     const currentProduct =
       products &&
       products.find((product) => product.name === this.state.productName);
@@ -49,6 +59,7 @@ class Product extends Component {
       inStock,
       prices,
     } = currentProduct ? currentProduct : {};
+    currentProduct && console.log(this.productIsInCart(currentProduct));
     return (
       <section className="product-section">
         {currentProduct ? (
@@ -125,7 +136,7 @@ class Product extends Component {
                 }`}
               </p>
               {Object.keys(this.state.infoSelected).length ===
-              attributes.length ? (
+                attributes.length && !this.productIsInCart(currentProduct) ? (
                 <Link
                   onClick={() => this.props.addToCart(currentProductWithInfo)}
                   to="/cart"
@@ -143,7 +154,9 @@ class Product extends Component {
                     add to cart
                   </button>
                   <p style={{ display: "none" }} className="error-text">
-                    please select your preferred options
+                    {this.productIsInCart(currentProduct)
+                      ? "Product is already in cart"
+                      : "please select your preferred options"}
                   </p>
                 </div>
               )}
@@ -164,6 +177,7 @@ const mapStateToProps = (state) => {
   return {
     products: state.products.products,
     currencyIndex: state.products.currencyIndex,
+    productsInCart: state.cart.products,
   };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -5,6 +5,10 @@
 }
 .cart-section .item-container {
   /* overflow: hidden; */
+  border-top: 1px solid #e5e5e5;
+  padding-top: 20px;
+  margin-bottom: -20px;
+  position: relative;
 }
 
 .cart-section .item-container .item-info {
@@ -25,7 +29,9 @@
 }
 
 /* ------------------------COPIED STYLES FROM product.css---------------------------------------- */
-
+.cart-section .item-container .item-info .attr-container {
+  margin-top: 40px;
+}
 .cart-section .item-container .item-info .options {
   list-style: none;
   padding: unset;
@@ -89,13 +95,14 @@
   float: left;
   box-sizing: border-box;
   width: 30%;
-  border: 1px solid green;
+  /* border: 1px solid green; */
+  overflow: hidden;
 }
 .cart-section .item-container .item-gallery .change-quantity {
   float: left;
   width: 20%;
   box-sizing: border-box;
-  border: 1px solid yellow;
+  /* border: 1px solid yellow; */
   height: 185px;
   font-size: 40px;
 }
@@ -110,18 +117,26 @@
   padding: 0;
   margin: auto;
   font-weight: 100;
+  cursor: pointer;
 }
 .cart-section .item-container .item-gallery .change-quantity .quantity {
-  border: 1px solid lawngreen;
+  /* border: 1px solid lawngreen; */
   text-align: center;
-  margin: 20px 0;
+  margin: 30px 0;
+  font-size: 25px;
+}
+.cart-section .item-container .item-gallery {
+  position: absolute;
+  right: 50px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .cart-section .item-container .item-gallery .img-slider {
   float: left;
   height: 185px;
   width: 141px;
   box-sizing: border-box;
-  border: 1px solid yellow;
+  /* border: 1px solid yellow; */
 }
 .cart-section .item-container .item-gallery .img-slider .slide {
   height: 100%;

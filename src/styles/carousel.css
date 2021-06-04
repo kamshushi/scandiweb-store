@@ -8,10 +8,13 @@
 .carousel .carousel-item-hidden {
   display: none;
 }
+.carousel .carousel-item {
+}
 .carousel .carousel-item img {
   width: 100%;
   max-width: 600px;
-  height: auto;
+  height: 185px;
+  object-fit: contains;
 }
 .carousel .carousel-item-visible {
   display: block;
@@ -20,16 +23,17 @@
 .carousel .carousel-actions {
   display: flex;
   justify-content: space-between;
-  position: absolute;
   top: 50%;
-  transform: translateY(50%);
+  transform: translateY(-50%);
   width: 100%;
+  position: absolute;
 }
 .carousel .carousel-actions button {
   border-radius: 50px;
   border: 0;
   font-weight: bold;
   cursor: pointer;
+  background-color: #c3c3c3;
 }
 .carousel .carousel-actions button#carousel-button-prev {
 }
