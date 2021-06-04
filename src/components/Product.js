@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { ADD_TO_CART } from "../redux/actionTypes";
@@ -40,7 +40,6 @@ class Product extends Component {
       { quantity: 1, userSelection: this.state.infoSelected },
       currentProduct
     );
-
     const {
       name,
       attributes,
@@ -50,7 +49,6 @@ class Product extends Component {
       inStock,
       prices,
     } = currentProduct ? currentProduct : {};
-    console.log(description);
     return (
       <section className="product-section">
         {currentProduct ? (
@@ -126,12 +124,29 @@ class Product extends Component {
                   prices[currencyIndex].amount
                 }`}
               </p>
-              <Link
-                onClick={() => this.props.addToCart(currentProductWithInfo)}
-                to="/cart"
-              >
-                <button className="add-to-cart">add to cart</button>
-              </Link>
+              {Object.keys(this.state.infoSelected).length ===
+              attributes.length ? (
+                <Link
+                  onClick={() => this.props.addToCart(currentProductWithInfo)}
+                  to="/cart"
+                >
+                  <button className="add-to-cart">add to cart</button>
+                </Link>
+              ) : (
+                <div>
+                  <button
+                    onClick={(e) =>
+                      (e.target.parentElement.lastChild.style = "display:block")
+                    }
+                    className="add-to-cart"
+                  >
+                    add to cart
+                  </button>
+                  <p style={{ display: "none" }} className="error-text">
+                    please select your preferred options
+                  </p>
+                </div>
+              )}
               <div
                 className="description"
                 dangerouslySetInnerHTML={{ __html: description }}
