@@ -14,7 +14,14 @@ class MiniCart extends Component {
   }
 
   render() {
-    const { products, currencyIndex, changeQuantity, allProducts } = this.props;
+    const {
+      products,
+      currencyIndex,
+      changeQuantity,
+      allProducts,
+      showMiniCart,
+      hideMiniCart,
+    } = this.props;
     const currentCurrency = allProducts[0]
       ? getCurrencySymbol(allProducts[0].prices[currencyIndex].currency)
       : "$";
@@ -23,7 +30,7 @@ class MiniCart extends Component {
         <h1>
           My Bag,
           <span>
-            {products.length} {products.length === 1 ? "item" : "items"}
+            {` ${products.length}`} {products.length === 1 ? "item" : "items"}
           </span>
         </h1>
         {products.map((product) => {
@@ -89,7 +96,7 @@ class MiniCart extends Component {
           )}`}</p>
         </div>
         <div className="bottom-buttons">
-          <Link className="view-bag" to="/cart">
+          <Link onClick={hideMiniCart} className="view-bag" to="/cart">
             <button>view bag</button>
           </Link>
           <button className="check-out">check out</button>

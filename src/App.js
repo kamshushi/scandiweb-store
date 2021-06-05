@@ -3,8 +3,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 //Redux
-import { Provider, connect } from "react-redux";
-import store from "./redux/store";
+import { connect } from "react-redux";
 import { getProducts } from "./redux/actions";
 //components
 import Navbar from "./components/Navbar";
@@ -13,7 +12,6 @@ import Product from "./components/Product";
 import Cart from "./components/Cart";
 //styles
 import "./App.css";
-import MiniCart from "./components/MiniCart";
 
 //App Container
 const Container = styled.div`

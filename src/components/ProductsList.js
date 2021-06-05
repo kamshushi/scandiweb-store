@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import "../styles/productsList.css";
 import CircleIcon from "../icons/Circle Icon.svg";
 import { Link } from "react-router-dom";
 //Redux
 import { connect } from "react-redux";
-import { getProducts } from "../redux/actions";
 //util
 import getCurrencySymbol from "../util/getCurrencySymbol";
+//styles
+import "../styles/productsList.css";
 
 class ProductsList extends Component {
   constructor(props) {
@@ -31,9 +31,13 @@ class ProductsList extends Component {
               );
               return (
                 <div key={product.name} className="product-container">
-                  <div className={`out-of-stock ${!product.inStock && "show"}`}>
-                    <p>out of stock</p>
-                  </div>
+                  <Link to={`/product/${product.name}`}>
+                    <div
+                      className={`out-of-stock ${!product.inStock && "show"}`}
+                    >
+                      <p>out of stock</p>
+                    </div>
+                  </Link>
                   <Link to={`/product/${product.name}`}>
                     <div className="img-holder">
                       <img className="img" src={product.gallery[0]} alt="img" />

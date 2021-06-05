@@ -21,33 +21,58 @@ class Navbar extends Component {
       showMiniCart: false,
     };
   }
-  hideCurrencies = (e) => {
-    if (!e.target.matches(".currency-logo, .arrow-down")) {
-      this.setState({ showCurrencies: false });
-    }
-  };
-  toggleCurrencies = () => {
-    this.setState({
-      showCurrencies: !this.state.showCurrencies,
-    });
-  };
   //Set current category
   setCategory = (e) => {
     store.dispatch({ type: SET_CATEGORY, payload: e.target.id });
   };
+  hideDropDownsOnScreenClick = (e) => {
+    if (!e.target.matches(".currency-logo, .arrow-down")) {
+      this.setState({ ...this.state, showCurrencies: false });
+    }
+    if (
+      !e.target.matches(
+        ".cart-icon, .cart-icon img , .nav-container , .minicart-container , .minicart-container *, .cart-icon .num-of-products "
+      )
+    ) {
+      this.setState({ ...this.state, showMiniCart: false });
+    }
+  };
+  toggleCurrencies = () => {
+    this.setState({
+      ...this.state,
+      showCurrencies: !this.state.showCurrencies,
+      showMiniCart: false,
+    });
+  };
+  toggleMiniCart = () => {
+    console.log("toggled");
+    this.setState({
+      ...this.state,
+      showCurrencies: false,
+      showMiniCart: !this.state.showMiniCart,
+    });
+  };
+  hideMiniCart = () => {
+    this.setState({
+      ...this.state,
+      showMiniCart: false,
+    });
+  };
   componentDidMount() {
-    window.addEventListener("click", this.hideCurrencies);
+    window.addEventListener("click", this.hideDropDownsOnScreenClick);
   }
   componentWillUnmount() {
-    window.removeEventListener("click", this.hideCurrencies);
+    window.removeEventListener("click", this.hideDropDownsOnScreenClick);
   }
   render() {
+    const { showCurrencies, showMiniCart } = this.state;
     const {
       categories,
       currencies,
       setCurrency,
       currencyIndex,
       currentCategory,
+      productsInCart,
     } = this.props;
     //categories List
     const categoriesMarkup =
@@ -97,17 +122,29 @@ class Navbar extends Component {
               src={ArrowDown}
               alt="arrow"
             />
-            <ul
-              className={`currencies ${
-                this.state.showCurrencies ? "show" : ""
-              }`}
-            >
+            <ul className={`currencies ${showCurrencies ? "show" : ""}`}>
               {currenciesMarkup}
             </ul>
           </div>
-          <img className="cart-icon" src={CartLogo} alt="cart" />
-          <MiniCart />
+          <div className="cart-icon">
+            <img onClick={this.toggleMiniCart} src={CartLogo} alt="cart-icon" />
+            {productsInCart.length > 0 && (
+              <span onClick={this.toggleMiniCart} className="num-of-products">
+                {productsInCart.length}
+              </span>
+            )}
+          </div>
+          {/* passing hideMiniCart to be able to close the mini-cart on click on view bags btn */}
+          {showMiniCart && (
+            <MiniCart
+              hideMiniCart={this.hideMiniCart}
+              showMiniCart={showMiniCart}
+            />
+          )}
         </div>
+        <div
+          className={`minicart-overlay ${showMiniCart ? "show-overlay" : ""}`}
+        ></div>
       </nav>
     );
   }
@@ -121,6 +158,7 @@ const mapStateToProps = (state) => {
   const allCategories = products && products.map((product) => product.category);
   const uniqueCategories = [...new Set(allCategories)];
   return {
+    productsInCart: state.cart.products,
     currencies: currencies,
     categories: uniqueCategories,
     currencyIndex: state.products.currencyIndex,

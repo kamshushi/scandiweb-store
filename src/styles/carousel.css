@@ -1,25 +1,24 @@
-/* /////////////////////////////// */
 .carousel {
   overflow: hidden;
   max-width: 600px;
   position: relative;
 }
+/* carousel images */
 .carousel .carousel-item,
 .carousel .carousel-item-hidden {
   display: none;
-}
-.carousel .carousel-item {
 }
 .carousel .carousel-item img {
   width: 100%;
   max-width: 600px;
   height: 185px;
-  object-fit: contains;
+  object-fit: contain;
 }
 .carousel .carousel-item-visible {
   display: block;
   animation: fadeVisibility 0.5s;
 }
+/* Left and right button */
 .carousel .carousel-actions {
   display: flex;
   justify-content: space-between;
@@ -38,10 +37,6 @@
 }
 .carousel .carousel-actions button img {
   height: 10px;
-}
-.carousel .carousel-actions button#carousel-button-prev {
-}
-.carousel .carousel-actions button#carousel-button-next {
 }
 
 @keyframes fadeVisibility {

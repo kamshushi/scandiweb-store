@@ -135,30 +135,37 @@ class Product extends Component {
                   prices[currencyIndex].amount
                 }`}
               </p>
-              {Object.keys(this.state.infoSelected).length ===
-                attributes.length && !this.productIsInCart(currentProduct) ? (
-                <Link
-                  onClick={() => this.props.addToCart(currentProductWithInfo)}
-                  to="/cart"
-                >
-                  <button className="add-to-cart">add to cart</button>
-                </Link>
-              ) : (
-                <div>
-                  <button
-                    onClick={(e) =>
-                      (e.target.parentElement.lastChild.style = "display:block")
-                    }
-                    className="add-to-cart"
+              {currentProduct.inStock ? (
+                Object.keys(this.state.infoSelected).length ===
+                  attributes.length && !this.productIsInCart(currentProduct) ? (
+                  <Link
+                    onClick={() => this.props.addToCart(currentProductWithInfo)}
+                    to="/cart"
                   >
-                    add to cart
-                  </button>
-                  <p style={{ display: "none" }} className="error-text">
-                    {this.productIsInCart(currentProduct)
-                      ? "Product is already in cart"
-                      : "please select your preferred options"}
-                  </p>
-                </div>
+                    <button className="add-to-cart">add to cart</button>
+                  </Link>
+                ) : (
+                  <div>
+                    <button
+                      onClick={(e) =>
+                        (e.target.parentElement.lastChild.style =
+                          "display:block")
+                      }
+                      className="add-to-cart"
+                    >
+                      add to cart
+                    </button>
+                    <p style={{ display: "none" }} className="error-text">
+                      {this.productIsInCart(currentProduct)
+                        ? "Product is already in cart"
+                        : "please select your preferred options"}
+                    </p>
+                  </div>
+                )
+              ) : (
+                <button disabled className="add-to-cart out-of-stock-button">
+                  out of stock
+                </button>
               )}
               <div
                 className="description"

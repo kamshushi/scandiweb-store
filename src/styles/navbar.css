@@ -1,3 +1,31 @@
+/* Common */
+.nav-container .actions .currency-container .arrow-down,
+.nav-container .actions .currency-container .currency-logo,
+.nav-container .cart-icon,
+.nav-container .actions .currency-container .currencies li {
+  cursor: pointer;
+}
+.nav-container .categories li:hover,
+.nav-container .categories li.active {
+  border-bottom: 2px solid #5ece7b;
+  color: #5ece7b;
+}
+.nav-container .minicart-overlay,
+.nav-container .currency-container .currencies,
+.nav-container .actions .cart-icon .num-of-products {
+  position: absolute;
+}
+.nav-container .actions,
+.nav-container .actions .currency-container,
+.nav-container .actions .cart-icon {
+  position: relative;
+}
+.nav-container .categories li,
+.nav-container .actions .currency-container,
+.nav-container .actions .cart-icon {
+  display: inline-block;
+}
+/* Navbar container */
 .nav-container {
   height: 80px;
   display: flex;
@@ -10,75 +38,85 @@
 
 /* Categories */
 .nav-container .categories {
-  list-style: none;
   padding: 0;
   margin: 0;
 }
 .nav-container .categories li {
-  display: inline-block;
   padding: 30px 15px;
   margin-right: 10px;
   cursor: pointer;
 }
-.nav-container .categories li:hover,
-.nav-container .categories li.active {
-  border-bottom: 2px solid #5ece7b;
-  color: #5ece7b;
-}
+
 /* Logo */
 .nav-container .logo img {
   padding: 15px 0;
 }
 /* Actions */
+
 .nav-container .actions {
-  margin-left: 40px;
-  margin-top: 20px;
+  margin: 20px 0 0 40px;
 }
+/* Currencies dropdown */
 .nav-container .actions .currency-container {
-  display: inline-block;
   margin-right: 20px;
-  position: relative;
 }
 .nav-container .actions .currency-container .currency-logo {
   font-size: 22px;
-  padding-right: 4px;
-  cursor: pointer;
+  padding-right: 10px;
 }
 .nav-container .actions .currency-container .currency-logo:hover {
   color: #5ece7b;
 }
-.nav-container .actions .currency-container .arrow-down {
-  cursor: pointer;
-}
 
 .nav-container .currency-container .currencies {
-  list-style: none;
   padding: 0;
-  position: absolute;
   box-shadow: 0px 0px 32px 2px rgb(168, 172, 176, 0.19);
   padding: 0 40px 0 20px;
   top: 35px;
   left: -15px;
   width: 62px;
-  display: none;
+  z-index: 2;
+  background-color: #fff;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
 }
 .nav-container .actions .currency-container .currencies.show {
-  display: block;
+  height: auto;
+  opacity: 1;
+  transition: 0.3s ease;
 }
 .nav-container .actions .currency-container .currencies li {
   margin: 20px 0;
 }
 .nav-container .actions .currency-container .currencies li:hover {
   color: #5ece7b;
-  cursor: pointer;
+}
+/* MiniCart dropdown and overlay */
+
+.nav-container .actions .cart-icon .num-of-products {
+  background-color: #1d1f22;
+  color: #fff;
+  width: 20px;
+  height: 20px;
+  border-radius: 60px;
+  font-size: 14px;
+  padding: 1px;
+  text-align: center;
+  line-height: 18px;
+  top: -11px;
+  right: -14px;
 }
 
-.nav-container .cart-icon {
-  cursor: pointer;
-}
-.nav-container .minicart-container {
-  position: absolute;
-  top: 26px;
-  right: 87px;
+.nav-container .minicart-overlay {
+  background-color: rgba(57, 55, 72, 0.22);
+  top: 80px;
+  left: 0;
+  right: 0;
   z-index: 3;
+  display: none;
+  height: 90vh;
+}
+.nav-container .minicart-overlay.show-overlay {
+  display: block;
 }
