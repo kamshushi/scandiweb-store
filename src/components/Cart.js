@@ -63,17 +63,16 @@ class Cart extends Component {
         {products.map((product, productIndex) => {
           const { quantity, userSelection, name, gallery, attributes, prices } =
             product;
-          const x = this;
           return (
             <div key={name} className="item-container">
               <div className="item-info">
                 <h1>{name.split(" ")[0]}</h1>
                 {name.split(" ").length !== 1 && (
                   <h2>{name.substr(name.indexOf(" ") + 1)}</h2>
-                )}{" "}
-                <p>{`${getCurrencySymbol(prices[currencyIndex].currency)} ${
-                  prices[currencyIndex].amount
-                }`}</p>
+                )}
+                <p>{`${getCurrencySymbol(prices[currencyIndex].currency)} ${(
+                  prices[currencyIndex].amount * quantity
+                ).toFixed(2)}`}</p>
                 {attributes.map((attribute) => {
                   const { id, name, items, type } = attribute;
                   return (
@@ -116,19 +115,19 @@ class Cart extends Component {
               </div>
               <div className="item-gallery">
                 <div className="change-quantity">
-                  <div
+                  <button
                     onClick={() => changeQuantity(product, quantity + 1)}
                     className="quantity-sign"
                   >
                     +
-                  </div>
+                  </button>
                   <p className="quantity">{quantity}</p>
-                  <div
+                  <button
                     onClick={() => changeQuantity(product, quantity - 1)}
                     className="quantity-sign"
                   >
                     -
-                  </div>
+                  </button>
                 </div>
                 <div className="img-slider">
                   <div className="carousel">

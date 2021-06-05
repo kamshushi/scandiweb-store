@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../styles/navbar.css";
 import { Link } from "react-router-dom";
+import MiniCart from "./MiniCart";
 //icons
 import StoreLogo from "../icons/Brand icon.svg";
 import ArrowDown from "../icons/arrow down.svg";
@@ -17,6 +18,7 @@ class Navbar extends Component {
     super(props);
     this.state = {
       showCurrencies: false,
+      showMiniCart: false,
     };
   }
   hideCurrencies = (e) => {
@@ -103,7 +105,8 @@ class Navbar extends Component {
               {currenciesMarkup}
             </ul>
           </div>
-          <img className="cart" src={CartLogo} alt="cart" />
+          <img className="cart-icon" src={CartLogo} alt="cart" />
+          <MiniCart />
         </div>
       </nav>
     );

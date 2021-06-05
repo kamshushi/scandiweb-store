@@ -34,6 +34,10 @@
   font-weight: bold;
   cursor: pointer;
   background-color: #c3c3c3;
+  outline: 0;
+}
+.carousel .carousel-actions button img {
+  height: 10px;
 }
 .carousel .carousel-actions button#carousel-button-prev {
 }

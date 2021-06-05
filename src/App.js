@@ -13,6 +13,7 @@ import Product from "./components/Product";
 import Cart from "./components/Cart";
 //styles
 import "./App.css";
+import MiniCart from "./components/MiniCart";
 
 //App Container
 const Container = styled.div`

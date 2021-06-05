@@ -72,3 +72,13 @@
   color: #5ece7b;
   cursor: pointer;
 }
+
+.nav-container .cart-icon {
+  cursor: pointer;
+}
+.nav-container .minicart-container {
+  position: absolute;
+  top: 26px;
+  right: 87px;
+  z-index: 3;
+}
