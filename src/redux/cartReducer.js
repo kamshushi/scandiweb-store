@@ -14,7 +14,7 @@ const cartReducer = (state = initialState, action) => {
     case CHANGE_QUANTITY:
       const products = state.products;
       for (let i in products) {
-        if (products[i].name === action.payload.productName) {
+        if (products[i].id === action.payload.product.id) {
           products[i].quantity = action.payload.newQuantity;
           break;
         }
@@ -25,7 +25,7 @@ const cartReducer = (state = initialState, action) => {
       };
     case REMOVE_FROM_CART:
       const newProducts = state.products.filter((product) => {
-        return product.name !== action.payload.name;
+        return product.id !== action.payload.id;
       });
       return {
         ...state,

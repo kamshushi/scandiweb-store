@@ -48,3 +48,24 @@
     transform: opacity linear;
   }
 }
+
+/* Responsiveness */
+@media (max-width: 600px) {
+  .carousel .carousel-actions {
+    width: 75%;
+    left: 13px;
+  }
+  .carousel .carousel-actions button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10px;
+    width: 10px;
+  }
+  .carousel .carousel-actions button img {
+    height: 5px;
+  }
+  .carousel .carousel-item img {
+    height: 60px;
+  }
+}

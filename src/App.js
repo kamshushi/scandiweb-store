@@ -1,7 +1,6 @@
 //React stuff
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import styled from "styled-components";
 //Redux
 import { connect } from "react-redux";
 import { getProducts } from "./redux/actions";
@@ -14,10 +13,7 @@ import Cart from "./components/Cart";
 import "./App.css";
 
 //App Container
-const Container = styled.div`
-  width: 86.11%;
-  margin: auto;
-`;
+
 class App extends Component {
   componentDidMount() {
     this.props.fetchProducts();
@@ -26,14 +22,14 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-          <Container>
+          <div className="app-container">
             <Navbar />
             <Switch>
               <Route exact path="/" component={ProductsList} />
               <Route exact path="/product/:name" component={Product} />
               <Route exact path="/cart" component={Cart} />
             </Switch>
-          </Container>
+          </div>
         </Router>
       </div>
     );

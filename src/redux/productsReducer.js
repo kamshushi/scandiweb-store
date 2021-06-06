@@ -7,6 +7,9 @@ import {
 } from "./actionTypes";
 const initialState = {
   products: [],
+  currencyIndex: 0,
+  currentCategory: "",
+  loading: true,
 };
 const productsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -16,10 +19,19 @@ const productsReducer = (state = initialState, action) => {
         loading: true,
       };
     case SET_PRODUCTS:
+      let products = action.payload.products;
+      const productsWithId = products.map((item, index) => {
+        return {
+          ...item,
+          id: index + 1,
+        };
+      });
+      const allCategories = products.map((product) => product.category);
+      const uniqueCategories = [...new Set(allCategories)];
       return {
         ...state,
-        products: action.payload.products,
-        currentCategory: "clothes",
+        products: productsWithId,
+        currentCategory: uniqueCategories[0],
         currencyIndex: 0,
       };
     case STOP_LOADING:

@@ -1,6 +1,8 @@
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+// redux
+import { connect } from "react-redux";
 import { ADD_TO_CART } from "../redux/actionTypes";
 //styles
 import "../styles/product.css";
@@ -10,21 +12,21 @@ class Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      productName: props.match.params.name,
+      productId: props.match.params.name,
       currentImageIndex: 0,
       infoSelected: {},
     };
   }
   productIsInCart = (product) => {
     const products = this.props.productsInCart;
-    console.log(products);
     for (let i in products) {
-      if (products[i].name === product.name) {
+      if (products[i].id === product.id) {
         return true;
       }
     }
     return false;
   };
+  // Getting user's selection of attributes values
   setInfoSelected = (e) => {
     this.setState({
       ...this.state,
@@ -41,25 +43,18 @@ class Product extends Component {
     });
   };
   render() {
-    const { products, currencyIndex, productsInCart } = this.props;
+    const { products, currencyIndex, loading } = this.props;
+    // Getting the product in the page
     const currentProduct =
-      products &&
-      products.find((product) => product.name === this.state.productName);
-    // product with user data and quantity of 1
+      !loading &&
+      products.find((product) => product.id === parseInt(this.state.productId));
+    // Adding user attributes selection and a quantity of 1 to our product
     const currentProductWithInfo = Object.assign(
       { quantity: 1, userSelection: this.state.infoSelected },
       currentProduct
     );
-    const {
-      name,
-      attributes,
-      category,
-      description,
-      gallery,
-      inStock,
-      prices,
-    } = currentProduct ? currentProduct : {};
-    currentProduct && console.log(this.productIsInCart(currentProduct));
+    const { name, attributes, description, gallery, inStock, prices } =
+      currentProduct ? currentProduct : {};
     return (
       <section className="product-section">
         {currentProduct ? (
@@ -80,7 +75,7 @@ class Product extends Component {
             <div className="current-image">
               <img src={gallery[this.state.currentImageIndex]} alt="img" />
             </div>
-            {/* product's title */}
+            {/* product's dynamic title */}
             <div className="product-info">
               <h1>{name.split(" ")[0]}</h1>
               {name.split(" ").length !== 1 && (
@@ -135,7 +130,8 @@ class Product extends Component {
                   prices[currencyIndex].amount
                 }`}
               </p>
-              {currentProduct.inStock ? (
+              {/* Add to cart button that changes according to given data */}
+              {inStock ? (
                 Object.keys(this.state.infoSelected).length ===
                   attributes.length && !this.productIsInCart(currentProduct) ? (
                   <Link
@@ -180,8 +176,18 @@ class Product extends Component {
     );
   }
 }
+// PropTypes
+Product.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  products: PropTypes.array.isRequired,
+  currencyIndex: PropTypes.number.isRequired,
+  productsInCart: PropTypes.array.isRequired,
+  addToCart: PropTypes.func.isRequired,
+};
+// Map state and dispatch to props
 const mapStateToProps = (state) => {
   return {
+    loading: state.products.loading,
     products: state.products.products,
     currencyIndex: state.products.currencyIndex,
     productsInCart: state.cart.products,

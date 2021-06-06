@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 //redux
 import { connect } from "react-redux";
 import { REMOVE_FROM_CART, CHANGE_QUANTITY } from "../redux/actionTypes";
@@ -9,23 +10,19 @@ import "../styles/miniCart.css";
 import getCurrencySymbol from "../util/getCurrencySymbol";
 
 class MiniCart extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       products,
       currencyIndex,
       changeQuantity,
       allProducts,
-      showMiniCart,
       hideMiniCart,
     } = this.props;
     const currentCurrency = allProducts[0]
       ? getCurrencySymbol(allProducts[0].prices[currencyIndex].currency)
       : "$";
     return (
+      // MiniCart container
       <div className="minicart-container">
         <h1>
           My Bag,
@@ -33,15 +30,24 @@ class MiniCart extends Component {
             {` ${products.length}`} {products.length === 1 ? "item" : "items"}
           </span>
         </h1>
+        {/* Products List */}
         {products.map((product) => {
-          const { name, prices, gallery, attributes, userSelection, quantity } =
-            product;
+          const {
+            id,
+            name,
+            prices,
+            gallery,
+            attributes,
+            userSelection,
+            quantity,
+          } = product;
           const productPrice = (
             prices[currencyIndex].amount * quantity
           ).toFixed(2);
 
           return (
-            <div key={name} className="product">
+            <div key={id} className="product">
+              {/* Product info */}
               <div className="product-info">
                 <h3>{name.split(" ")[0]}</h3>
                 {name.split(" ").length !== 1 && (
@@ -65,6 +71,7 @@ class MiniCart extends Component {
                   </ul>
                 )}
               </div>
+              {/* Image and quantity buttons */}
               <div className="product-rightside">
                 <div className="change-quantity">
                   <button
@@ -75,19 +82,22 @@ class MiniCart extends Component {
                   </button>
                   <p className="quantity">{quantity}</p>
                   <button
-                    onClick={() => changeQuantity(product, quantity - 1)}
+                    onClick={() => {
+                      changeQuantity(product, quantity - 1);
+                    }}
                     className="quantity-sign"
                   >
                     -
                   </button>
                 </div>
                 <div className="product-image">
-                  <img src={product.gallery[0]} />
+                  <img src={gallery[0]} alt="product" />
                 </div>
               </div>
             </div>
           );
         })}
+        {/* Total price */}
         <div className="total-price">
           <p className="total">Total</p>
           <p className="price">{`${currentCurrency} ${calculateTotal(
@@ -95,6 +105,7 @@ class MiniCart extends Component {
             currencyIndex
           )}`}</p>
         </div>
+        {/* Bottom buttons */}
         <div className="bottom-buttons">
           <Link onClick={hideMiniCart} className="view-bag" to="/cart">
             <button>view bag</button>
@@ -105,6 +116,15 @@ class MiniCart extends Component {
     );
   }
 }
+// PropTypes
+MiniCart.propTypes = {
+  allProducts: PropTypes.array.isRequired,
+  products: PropTypes.array.isRequired,
+  currencyIndex: PropTypes.number.isRequired,
+  changeQuantity: PropTypes.func.isRequired,
+  hideMiniCart: PropTypes.func.isRequired,
+};
+// Get total price
 const calculateTotal = (products, currencyIndex) => {
   let total = 0;
   products.forEach((product) => {
@@ -114,6 +134,7 @@ const calculateTotal = (products, currencyIndex) => {
   });
   return total.toFixed(2);
 };
+// Map state and dispatch to props
 const mapStateToProps = (state) => {
   return {
     allProducts: state.products.products,
@@ -127,10 +148,9 @@ const mapDispatchToProps = (dispatch) => {
       if (newQuantity === 0) {
         dispatch({ type: REMOVE_FROM_CART, payload: product });
       } else {
-        const productName = product.name;
         dispatch({
           type: CHANGE_QUANTITY,
-          payload: { productName, newQuantity },
+          payload: { product, newQuantity },
         });
       }
     },

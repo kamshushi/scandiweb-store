@@ -42,6 +42,11 @@
 .minicart-container .bottom-buttons .view-bag button {
   font-weight: bold;
 }
+.minicart-container .product .product-rightside .change-quantity .quantity-sign,
+.minicart-container .bottom-buttons .view-bag button,
+.minicart-container .bottom-buttons .check-out {
+  cursor: pointer;
+}
 /* MiniCart container */
 .minicart-container * {
   font-size: 16px;
@@ -52,13 +57,13 @@
   margin-top: 20px;
   width: 325px;
   padding: 15px;
-  background-color: white;
+  background-color: var(--clr-bcg);
   text-transform: none;
   position: absolute;
-  top: 39px;
+  top: 35px;
   right: -15px;
   z-index: 4;
-  max-height: 750px;
+  max-height: 500px;
   overflow-y: auto;
 }
 .minicart-container h1 {
@@ -100,14 +105,14 @@
   font-size: 14px;
   min-width: 24px;
   height: 24px;
-  color: #1d1f22;
+  color: var(--clr-font);
   line-height: 45px;
   align-items: center;
-  border: 1px solid #1d1f22;
+  border: 1px solid var(--clr-font);
   margin-right: 8px;
   margin-bottom: 0px;
-  cursor: pointer;
   padding: 5px;
+  cursor: default;
 }
 .minicart-container .product .product-info > ul.attributes > li.active {
   background-color: rgba(166, 166, 166, 0.2);
@@ -133,7 +138,7 @@
   .product-rightside
   .change-quantity
   .quantity-sign {
-  border: 1px solid black;
+  border: 1px solid var(--clr-font);
   width: 24px;
   height: 24px;
   margin: auto;
@@ -141,11 +146,10 @@
   padding: 0;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  background-color: #fff;
+  background-color: var(--clr-bcg);
 }
 .minicart-container .product .product-rightside .change-quantity .quantity {
-  margin: 34px 0;
+  margin: 36px 0;
   text-align: center;
 }
 .minicart-container .product .product-rightside .product-image {
@@ -174,12 +178,11 @@
 
   font-size: 14px;
   width: 48%;
-  cursor: pointer;
 }
 
 .minicart-container .bottom-buttons .view-bag {
-  border: 1px solid #1d1f22;
-  background-color: #fff;
+  border: 1px solid var(--clr-font);
+  background-color: var(--clr-bcg);
 }
 .minicart-container .bottom-buttons .view-bag button {
   text-transform: uppercase;
@@ -187,18 +190,29 @@
   width: 100%;
 
   margin: 0;
-  cursor: pointer;
-  background: #fff;
+  background: var(--clr-bcg);
 }
 
 .minicart-container .bottom-buttons .view-bag button:hover {
-  background-color: rgb(240, 240, 240);
+  background-color: var(--clr-view-bag);
 }
 
 .minicart-container .bottom-buttons .check-out {
-  background-color: #5ece7b;
-  color: #fff;
+  background-color: var(--clr-primary);
+  color: var(--clr-bcg);
 }
 .minicart-container .bottom-buttons .check-out:hover {
   background-color: #23c34d;
+}
+
+/* Responsiveness */
+@media (max-width: 900px) {
+  .minicart-container {
+    max-height: 400px;
+  }
+}
+@media (max-width: 600px) {
+  .minicart-container {
+    width: 300px;
+  }
 }

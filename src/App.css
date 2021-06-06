@@ -1,7 +1,43 @@
+:root {
+  --clr-bcg: #fff;
+  --clr-font: #1d1f22;
+  --clr-primary: #5ece7b;
+  --clr-out-of-stock-bcg: rgba(255, 255, 255, 0.7);
+  --clr-box-shadow: rgba(191, 196, 200, 0.4);
+  --clr-minicart-overlay: rgba(57, 55, 72, 0.22);
+  --clr-view-bag: #f0f0f0;
+}
+.light-theme {
+  --clr-bcg: #fff;
+  --clr-font: #1d1f22;
+  --clr-primary: #5ece7b;
+  --clr-out-of-stock-bcg: rgba(255, 255, 255, 0.7);
+  --clr-box-shadow: rgba(191, 196, 200, 0.4);
+  --clr-minicart-overlay: rgba(57, 55, 72, 0.22);
+  --clr-view-bag: #f0f0f0;
+}
+.dark-theme {
+  --clr-bcg: #282c35;
+  --clr-font: rgb(247, 247, 247);
+  --clr-primary: #5ece7b;
+  --clr-out-of-stock-bcg: rgba(51, 51, 51, 0.7);
+  --clr-box-shadow: rgba(0, 0, 0, 0.4);
+  --clr-minicart-overlay: rgb(58, 58, 58, 0.68);
+  --clr-view-bag: #252525;
+}
+body * {
+  color: var(--clr-font);
+}
 html,
 body {
   position: relative;
   font-family: "Raleway", sans-serif;
+  background-color: var(--clr-bcg);
+  transition: all 0.3s linear;
+}
+.app-container {
+  width: 86.11%;
+  margin: auto;
 }
 a {
   text-decoration: none;

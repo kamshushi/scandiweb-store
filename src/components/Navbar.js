@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import "../styles/navbar.css";
 import { Link } from "react-router-dom";
 import MiniCart from "./MiniCart";
+import PropTypes from "prop-types";
 //icons
 import StoreLogo from "../icons/Brand icon.svg";
-import ArrowDown from "../icons/arrow down.svg";
 import CartLogo from "../icons/Cart.svg";
 //util
 import getCurrencySymbol from "../util/getCurrencySymbol";
@@ -19,12 +19,14 @@ class Navbar extends Component {
     this.state = {
       showCurrencies: false,
       showMiniCart: false,
+      theme: "light-theme",
     };
   }
   //Set current category
   setCategory = (e) => {
     store.dispatch({ type: SET_CATEGORY, payload: e.target.id });
   };
+  // Hides dropdown menus (currencies and minicart) on window click
   hideDropDownsOnScreenClick = (e) => {
     if (!e.target.matches(".currency-logo, .arrow-down")) {
       this.setState({ ...this.state, showCurrencies: false });
@@ -45,7 +47,6 @@ class Navbar extends Component {
     });
   };
   toggleMiniCart = () => {
-    console.log("toggled");
     this.setState({
       ...this.state,
       showCurrencies: false,
@@ -58,6 +59,25 @@ class Navbar extends Component {
       showMiniCart: false,
     });
   };
+  toggleTheme = () => {
+    const state = this.state;
+    if (state.theme === "light-theme") {
+      this.setState({
+        ...state,
+        theme: "dark-theme",
+      });
+    } else {
+      this.setState({
+        ...state,
+        theme: "light-theme",
+      });
+    }
+  };
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.theme !== this.state.theme) {
+      document.documentElement.className = this.state.theme;
+    }
+  }
   componentDidMount() {
     window.addEventListener("click", this.hideDropDownsOnScreenClick);
   }
@@ -73,26 +93,27 @@ class Navbar extends Component {
       currencyIndex,
       currentCategory,
       productsInCart,
+      loading,
     } = this.props;
     //categories List
     const categoriesMarkup =
-      categories &&
+      !loading &&
       categories.map((category, index) => {
         return (
           <Link key={index} to="/">
-            <li
+            <div
               className={currentCategory === category ? "active" : ""}
               id={category}
               onClick={this.setCategory}
             >
               {category}
-            </li>
+            </div>
           </Link>
         );
       });
     //currencies List
     const currenciesMarkup =
-      currencies &&
+      !loading &&
       currencies.map((currency, index) => {
         return (
           <li onClick={setCurrency} key={index} id={index}>
@@ -103,29 +124,31 @@ class Navbar extends Component {
     return (
       <nav className="nav-container">
         {/* Categories */}
-        <ul className="categories">{categoriesMarkup}</ul>
+        <div className="categories">{categoriesMarkup}</div>
         {/* Store logo */}
         <div className="logo">
           <Link to="/">
             <img src={StoreLogo} alt="logo" />
           </Link>
         </div>
-        {/* Currencies and Cart */}
         <div className="actions">
+          {/* Dark mode */}
+          <span onClick={this.toggleTheme} className="dark-mode-icon">
+            &#x263d;{" "}
+          </span>
+          {/* Currencies  */}
           <div className="currency-container">
             <span onClick={this.toggleCurrencies} className="currency-logo">
-              {currencies && getCurrencySymbol(currencies[currencyIndex])}
+              {!loading && getCurrencySymbol(currencies[currencyIndex])}
             </span>
-            <img
-              onClick={this.toggleCurrencies}
-              className="arrow-down"
-              src={ArrowDown}
-              alt="arrow"
-            />
+            <span onClick={this.toggleCurrencies} className="arrow-down">
+              &rsaquo;
+            </span>
             <ul className={`currencies ${showCurrencies ? "show" : ""}`}>
               {currenciesMarkup}
             </ul>
           </div>
+          {/*  MiniCart */}
           <div className="cart-icon">
             <img onClick={this.toggleMiniCart} src={CartLogo} alt="cart-icon" />
             {productsInCart.length > 0 && (
@@ -135,12 +158,7 @@ class Navbar extends Component {
             )}
           </div>
           {/* passing hideMiniCart to be able to close the mini-cart on click on view bags btn */}
-          {showMiniCart && (
-            <MiniCart
-              hideMiniCart={this.hideMiniCart}
-              showMiniCart={showMiniCart}
-            />
-          )}
+          {showMiniCart && <MiniCart hideMiniCart={this.hideMiniCart} />}
         </div>
         <div
           className={`minicart-overlay ${showMiniCart ? "show-overlay" : ""}`}
@@ -149,12 +167,21 @@ class Navbar extends Component {
     );
   }
 }
-
+// PropTypes
+Navbar.propTypes = {
+  productsInCart: PropTypes.array.isRequired,
+  currencies: PropTypes.array.isRequired,
+  categories: PropTypes.array.isRequired,
+  currencyIndex: PropTypes.number.isRequired,
+  currentCategory: PropTypes.string.isRequired,
+  setCurrency: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+};
 //mapping state and dispatch actions to props
 const mapStateToProps = (state) => {
   const { products } = state.products;
   const currencies =
-    products[0] && products[0].prices.map((price) => price.currency);
+    (products[0] && products[0].prices.map((price) => price.currency)) || [];
   const allCategories = products && products.map((product) => product.category);
   const uniqueCategories = [...new Set(allCategories)];
   return {
@@ -163,11 +190,13 @@ const mapStateToProps = (state) => {
     categories: uniqueCategories,
     currencyIndex: state.products.currencyIndex,
     currentCategory: state.products.currentCategory,
+    loading: state.products.loading,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    setCurrency: (e) => dispatch({ type: SET_CURRENCY, payload: e.target.id }),
+    setCurrency: (e) =>
+      dispatch({ type: SET_CURRENCY, payload: parseInt(e.target.id) }),
   };
 };
 

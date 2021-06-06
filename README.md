@@ -1,6 +1,34 @@
-# Getting Started with Create React App
+## Description
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is an online store that allows user to add products to cart using data from a GraphQL endpoint
+
+## Features
+
+- User is able to add .
+- The app has a product listing page, product description page and a cart page.
+- The app uses redux to manage the app state.
+- User has the ability to to add/remove products and change their amounts in cart.
+- For products that have various options (attributes), the options are selected.
+- The selected options of added to cart products are visible in cart overlay and in cart page.
+- If an attribute is a swatch attribute (type = swatch), a representation of the value is rendered on PDP and PLP, rather than text description (e.g. the coloritself, not "Blue" or "0000FF").
+- Filtering products by category name for all of the categories from BE.
+- The descriptions provided in HTML format are parsed and presented as HTML, not as plain text.
+- Ability to change currency of the store to one of the available currencies
+
+## Some Extra Features
+
+- The application is Resposive for various screen sizes
+- Added Dark Mode
+- User can't add a product to cart unless he selected a value for all of the product's available attributes.
+- User can't add a product that is out of stock to cart.
+- User can't put an item in the cart more than once
+- Made a carousel without extra libraries
+- Added an id for each product to be more convenient to identify.
+- Didn't add all attributes for the product in the minicart as it's inconvenient and takes unused space
+
+## Before Installation
+
+Make sure you have the GraphQL endpoint up and running before starting the react server which is available at this link (https://www.figma.com/file/MSyCAqVy1UgNap0pvqH6H3/Junior-Frontend-Test-Designs-Public?node-id=0%3A1)
 
 ## Available Scripts
 
@@ -13,11 +41,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
@@ -44,22 +67,6 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
 ### Deployment
 

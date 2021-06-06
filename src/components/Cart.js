@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 //redux
 import { connect } from "react-redux";
 import { CHANGE_QUANTITY, REMOVE_FROM_CART } from "../redux/actionTypes";
@@ -17,7 +18,6 @@ class Cart extends Component {
     this.state = {};
   }
   displayNextSlide = (productIndex, gallery) => {
-    console.log(gallery.length);
     if (this.state[productIndex] === gallery.length - 1) {
       this.setState({
         ...this.state,
@@ -43,11 +43,10 @@ class Cart extends Component {
       });
     }
   };
+  // Display first image in each's products gallery as the first carousel image
   componentDidMount() {
     const items = document.getElementsByClassName("item-container");
-    console.log(items);
     Array.prototype.forEach.call(items, (item, index) => {
-      const x = this.state.items;
       this.setState({
         ...this.state,
         [index]: 0,
@@ -61,10 +60,18 @@ class Cart extends Component {
       <section className="cart-section">
         <h1 className="cart-header">cart</h1>
         {products.map((product, productIndex) => {
-          const { quantity, userSelection, name, gallery, attributes, prices } =
-            product;
+          const {
+            quantity,
+            userSelection,
+            name,
+            gallery,
+            attributes,
+            prices,
+            id,
+          } = product;
           return (
-            <div key={name} className="item-container">
+            <div key={id} className="item-container">
+              {/* item info */}
               <div className="item-info">
                 <h1>{name.split(" ")[0]}</h1>
                 {name.split(" ").length !== 1 && (
@@ -73,6 +80,7 @@ class Cart extends Component {
                 <p>{`${getCurrencySymbol(prices[currencyIndex].currency)} ${(
                   prices[currencyIndex].amount * quantity
                 ).toFixed(2)}`}</p>
+                {/* Attributes */}
                 {attributes.map((attribute) => {
                   const { id, name, items, type } = attribute;
                   return (
@@ -113,6 +121,7 @@ class Cart extends Component {
                   );
                 })}
               </div>
+              {/* Carousel and quantity changer */}
               <div className="item-gallery">
                 <div className="change-quantity">
                   <button
@@ -138,7 +147,7 @@ class Cart extends Component {
                           : ""
                       }`}
                     >
-                      <img src={gallery[0]} alt="image" />
+                      <img src={gallery[0]} alt="product-gallery" />
                     </div>
                     {gallery.length > 1 &&
                       gallery.map((image, index) => {
@@ -151,30 +160,34 @@ class Cart extends Component {
                                 : ""
                             }`}
                           >
-                            <img src={image} alt="image" />
+                            <img src={image} alt="product-gallery" />
                           </div>
                         ) : (
                           ""
                         );
                       })}
-                    <div className="carousel-actions">
-                      <button
-                        onClick={() =>
-                          this.displayPrevSlide(productIndex, gallery)
-                        }
-                        id="carousel-button-prev"
-                      >
-                        <img src={leftArrow} alt="icon" />
-                      </button>
-                      <button
-                        onClick={() =>
-                          this.displayNextSlide(productIndex, gallery)
-                        }
-                        id="carousel-button-next"
-                      >
-                        <img src={rightArrow} alt="icon" />
-                      </button>
-                    </div>
+                    {gallery.length > 1 ? (
+                      <div className="carousel-actions">
+                        <button
+                          onClick={() =>
+                            this.displayPrevSlide(productIndex, gallery)
+                          }
+                          id="carousel-button-prev"
+                        >
+                          <img src={leftArrow} alt="left-arrow" />
+                        </button>
+                        <button
+                          onClick={() =>
+                            this.displayNextSlide(productIndex, gallery)
+                          }
+                          id="carousel-button-next"
+                        >
+                          <img src={rightArrow} alt="right-arrow" />
+                        </button>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
               </div>
@@ -186,6 +199,13 @@ class Cart extends Component {
     );
   }
 }
+// PropTypes
+Cart.propTypes = {
+  products: PropTypes.array.isRequired,
+  currencyIndex: PropTypes.number.isRequired,
+  changeQuantity: PropTypes.func.isRequired,
+};
+// Mapping state and dispatch to props
 const mapStateToProps = (state) => {
   return {
     products: state.cart.products,
@@ -198,10 +218,9 @@ const mapDispatchToProps = (dispatch) => {
       if (newQuantity === 0) {
         dispatch({ type: REMOVE_FROM_CART, payload: product });
       } else {
-        const productName = product.name;
         dispatch({
           type: CHANGE_QUANTITY,
-          payload: { productName, newQuantity },
+          payload: { product, newQuantity },
         });
       }
     },

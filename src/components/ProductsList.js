@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import CircleIcon from "../icons/Circle Icon.svg";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 //Redux
 import { connect } from "react-redux";
 //util
@@ -9,14 +10,10 @@ import getCurrencySymbol from "../util/getCurrencySymbol";
 import "../styles/productsList.css";
 
 class ProductsList extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { products, loading, currentCategory, currencyIndex } = this.props;
     //filtering products according to current category
-    const filteredProducts = products
+    const filteredProducts = !loading
       ? products.filter((product) => product.category === currentCategory)
       : [];
     return (
@@ -24,28 +21,27 @@ class ProductsList extends Component {
         <h1 className="main-header">{currentCategory}</h1>
         <div className="products-container">
           {!loading ? (
-            products &&
+            // Products list
             filteredProducts.map((product) => {
+              const { id, name, inStock, gallery, prices } = product;
               const currencySymbol = getCurrencySymbol(
-                product.prices[currencyIndex].currency
+                prices[currencyIndex].currency
               );
               return (
-                <div key={product.name} className="product-container">
-                  <Link to={`/product/${product.name}`}>
-                    <div
-                      className={`out-of-stock ${!product.inStock && "show"}`}
-                    >
+                <div key={id} className="product-container">
+                  <Link to={`/product/${id}`}>
+                    <div className={`out-of-stock ${!inStock && "show"}`}>
                       <p>out of stock</p>
                     </div>
                   </Link>
-                  <Link to={`/product/${product.name}`}>
+                  <Link to={`/product/${id}`}>
                     <div className="img-holder">
-                      <img className="img" src={product.gallery[0]} alt="img" />
+                      <img className="img" src={gallery[0]} alt="img" />
                       <img className="icon" src={CircleIcon} alt="img" />
                     </div>
-                    <p className="product-name">{product.name}</p>
+                    <p className="product-name">{name}</p>
                     <p className="product-price">
-                      {`${currencySymbol} ${product.prices[currencyIndex].amount}`}
+                      {`${currencySymbol} ${prices[currencyIndex].amount}`}
                     </p>
                   </Link>
                 </div>
@@ -59,7 +55,13 @@ class ProductsList extends Component {
     );
   }
 }
-
+// PropTypes
+ProductsList.propTypes = {
+  products: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
+  currentCategory: PropTypes.string.isRequired,
+  currencyIndex: PropTypes.number.isRequired,
+};
 //mapping state and dispatch actions to props
 const mapStateToProps = (state) => {
   return {
