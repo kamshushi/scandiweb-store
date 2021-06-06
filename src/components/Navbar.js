@@ -19,7 +19,7 @@ class Navbar extends Component {
     this.state = {
       showCurrencies: false,
       showMiniCart: false,
-      theme: "light-theme",
+      theme: getStorageTheme(),
     };
   }
   //Set current category
@@ -76,10 +76,12 @@ class Navbar extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.theme !== this.state.theme) {
       document.documentElement.className = this.state.theme;
+      localStorage.setItem("theme", this.state.theme);
     }
   }
   componentDidMount() {
     window.addEventListener("click", this.hideDropDownsOnScreenClick);
+    document.documentElement.className = this.state.theme;
   }
   componentWillUnmount() {
     window.removeEventListener("click", this.hideDropDownsOnScreenClick);
@@ -176,6 +178,15 @@ Navbar.propTypes = {
   currentCategory: PropTypes.string.isRequired,
   setCurrency: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+};
+// Get Theme from local storage
+const getStorageTheme = () => {
+  let theme = "light-theme";
+  if (localStorage.getItem("theme")) {
+    theme = localStorage.getItem("theme");
+  }
+  console.log(`got ${theme}`);
+  return theme;
 };
 //mapping state and dispatch actions to props
 const mapStateToProps = (state) => {

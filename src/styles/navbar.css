@@ -144,8 +144,8 @@
   }
   .nav-container .categories div {
     padding-bottom: 34px;
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 6px;
+    padding-right: 6px;
   }
   .nav-container .logo img {
     margin-top: 5px;
@@ -167,7 +167,7 @@
 }
 @media (max-width: 600px) {
   .nav-container {
-    font-size: 10px;
+    font-size: 12px;
     height: 63px;
   }
   .nav-container .categories div {
@@ -187,5 +187,10 @@
 
   .nav-container .minicart-overlay {
     top: 63px;
+  }
+}
+@media (max-width: 400px) {
+  .nav-container {
+    font-size: 10px;
   }
 }
