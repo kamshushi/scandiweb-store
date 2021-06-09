@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 //redux
 import { connect } from "react-redux";
-import { REMOVE_FROM_CART, CHANGE_QUANTITY } from "../redux/actionTypes";
+import {
+  REMOVE_FROM_CART,
+  CHANGE_QUANTITY,
+  CHANGE_SHOW_MINICART,
+} from "../redux/actionTypes";
 //styles
 import "../styles/miniCart.css";
 //util
@@ -154,6 +158,8 @@ const mapDispatchToProps = (dispatch) => {
         });
       }
     },
+    hideMiniCart: () =>
+      dispatch({ type: CHANGE_SHOW_MINICART, payload: false }),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MiniCart);

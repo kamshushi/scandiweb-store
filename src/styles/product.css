@@ -140,13 +140,11 @@
 .product-grid-container .product-info .add-to-cart:hover {
   background-color: #23c34d;
 }
-.product-grid-container .product-info .add-to-cart.out-of-stock-button:hover {
-}
 .product-grid-container .product-info .description {
   margin-top: 40px;
 }
 
-/* Responsivensee */
+/* Responsivenss */
 
 @media (max-width: 900px) {
   .product-section .product-grid-container {

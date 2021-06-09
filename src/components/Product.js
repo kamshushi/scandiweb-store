@@ -134,12 +134,12 @@ class Product extends Component {
               {inStock ? (
                 Object.keys(this.state.infoSelected).length ===
                   attributes.length && !this.productIsInCart(currentProduct) ? (
-                  <Link
+                  <button
                     onClick={() => this.props.addToCart(currentProductWithInfo)}
-                    to="/cart"
+                    className="add-to-cart"
                   >
-                    <button className="add-to-cart">add to cart</button>
-                  </Link>
+                    add to cart
+                  </button>
                 ) : (
                   <div>
                     <button

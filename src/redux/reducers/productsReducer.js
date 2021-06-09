@@ -4,7 +4,7 @@ import {
   STOP_LOADING,
   SET_CATEGORY,
   SET_CURRENCY,
-} from "./actionTypes";
+} from "../actionTypes";
 const initialState = {
   products: [],
   currencyIndex: 0,
