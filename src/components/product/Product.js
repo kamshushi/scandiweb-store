@@ -1,13 +1,16 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+// Components
+import ProductAttributes from "./ProductAttributes";
+import SmallImages from "./SmallImages";
+import AddToCartBtn from "./AddToCartBtn";
 // redux
 import { connect } from "react-redux";
-import { ADD_TO_CART } from "../redux/actionTypes";
+import { ADD_TO_CART } from "../../redux/actionTypes";
 //styles
-import "../styles/product.css";
+import "../../styles/product.css";
 //util
-import getCurrencySymbol from "../util/getCurrencySymbol";
+import getCurrencySymbol from "../../util/getCurrencySymbol";
 class Product extends Component {
   constructor(props) {
     super(props);
@@ -43,7 +46,8 @@ class Product extends Component {
     });
   };
   render() {
-    const { products, currencyIndex, loading } = this.props;
+    const { products, currencyIndex, loading, addToCart } = this.props;
+    const { infoSelected } = this.state;
     // Getting the product in the page
     const currentProduct =
       !loading &&
@@ -61,15 +65,10 @@ class Product extends Component {
           <div className="product-grid-container">
             {/* List of leftside images */}
             <div className="img-list">
-              {gallery.map((photo, index) => (
-                <img
-                  onClick={this.setCurrentImage}
-                  id={index}
-                  key={index}
-                  src={photo}
-                  alt="img"
-                />
-              ))}
+              <SmallImages
+                gallery={gallery}
+                setCurrentImage={this.setCurrentImage}
+              />
             </div>
             {/* Main middle image */}
             <div className="current-image">
@@ -83,45 +82,13 @@ class Product extends Component {
               )}
               {/* Attributes */}
               {attributes.map((attribute) => {
-                const { id, name, items, type } = attribute;
                 return (
-                  <div key={id}>
-                    <h3>{`${name}:`}</h3>
-                    <ul className="options">
-                      {items.map((item) => {
-                        return (
-                          <li
-                            onClick={this.setInfoSelected}
-                            value={item.value}
-                            id={name}
-                            key={item.id}
-                            className={`option ${
-                              type === "swatch" ? "swatch" : ""
-                            } ${
-                              this.state.infoSelected[name] === item.value
-                                ? "active"
-                                : ""
-                            }`}
-                            style={
-                              type === "swatch"
-                                ? { backgroundColor: item.value }
-                                : {}
-                            }
-                          >
-                            {type === "swatch" ? (
-                              this.state.infoSelected[name] === item.value ? (
-                                <div className="selected-overlay">✓</div>
-                              ) : (
-                                ""
-                              )
-                            ) : (
-                              item.value
-                            )}
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
+                  <ProductAttributes
+                    key={attribute.id}
+                    attribute={attribute}
+                    infoSelected={infoSelected}
+                    setInfoSelected={this.setInfoSelected}
+                  />
                 );
               })}
               <h3>price:</h3>
@@ -131,38 +98,13 @@ class Product extends Component {
                 }`}
               </p>
               {/* Add to cart button that changes according to given data */}
-              {inStock ? (
-                Object.keys(this.state.infoSelected).length ===
-                  attributes.length && !this.productIsInCart(currentProduct) ? (
-                  <button
-                    onClick={() => this.props.addToCart(currentProductWithInfo)}
-                    className="add-to-cart"
-                  >
-                    add to cart
-                  </button>
-                ) : (
-                  <div>
-                    <button
-                      onClick={(e) =>
-                        (e.target.parentElement.lastChild.style =
-                          "display:block")
-                      }
-                      className="add-to-cart"
-                    >
-                      add to cart
-                    </button>
-                    <p style={{ display: "none" }} className="error-text">
-                      {this.productIsInCart(currentProduct)
-                        ? "Product is already in cart"
-                        : "please select your preferred options"}
-                    </p>
-                  </div>
-                )
-              ) : (
-                <button disabled className="add-to-cart out-of-stock-button">
-                  out of stock
-                </button>
-              )}
+              <AddToCartBtn
+                inStock={inStock}
+                infoSelected={infoSelected}
+                attributes={attributes}
+                addToCart={addToCart}
+                currentProductWithInfo={currentProductWithInfo}
+              />
               <div
                 className="description"
                 dangerouslySetInnerHTML={{ __html: description }}

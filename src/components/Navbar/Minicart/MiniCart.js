@@ -7,12 +7,12 @@ import {
   REMOVE_FROM_CART,
   CHANGE_QUANTITY,
   CHANGE_SHOW_MINICART,
-} from "../redux/actionTypes";
+} from "../../../redux/actionTypes";
 //styles
-import "../styles/miniCart.css";
+import "../../../styles/miniCart.css";
 //util
-import getCurrencySymbol from "../util/getCurrencySymbol";
-
+import getCurrencySymbol from "../../../util/getCurrencySymbol";
+import calculateTotal from "../../../util/calculateTotal";
 class MiniCart extends Component {
   render() {
     const {
@@ -37,20 +37,20 @@ class MiniCart extends Component {
         {/* Products List */}
         {products.map((product) => {
           const {
-            id,
             name,
             prices,
             gallery,
             attributes,
             userSelection,
             quantity,
+            timeAdded,
           } = product;
           const productPrice = (
             prices[currencyIndex].amount * quantity
           ).toFixed(2);
 
           return (
-            <div key={id} className="product">
+            <div key={timeAdded} className="product">
               {/* Product info */}
               <div className="product-info">
                 <h3>{name.split(" ")[0]}</h3>
@@ -128,16 +128,7 @@ MiniCart.propTypes = {
   changeQuantity: PropTypes.func.isRequired,
   hideMiniCart: PropTypes.func.isRequired,
 };
-// Get total price
-const calculateTotal = (products, currencyIndex) => {
-  let total = 0;
-  products.forEach((product) => {
-    const { prices, quantity } = product;
-    total =
-      total + parseFloat((prices[currencyIndex].amount * quantity).toFixed(2));
-  });
-  return total.toFixed(2);
-};
+
 // Map state and dispatch to props
 const mapStateToProps = (state) => {
   return {

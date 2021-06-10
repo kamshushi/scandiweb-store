@@ -7,9 +7,14 @@ const initialState = {
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
+      const product = action.payload;
+      const productWithDate = {
+        ...product,
+        timeAdded: new Date().valueOf(),
+      };
       return {
         ...state,
-        products: [...state.products, action.payload],
+        products: [...state.products, productWithDate],
       };
     case CHANGE_QUANTITY:
       const products = state.products;
@@ -25,7 +30,7 @@ const cartReducer = (state = initialState, action) => {
       };
     case REMOVE_FROM_CART:
       const newProducts = state.products.filter((product) => {
-        return product.id !== action.payload.id;
+        return product.timeAdded !== action.payload.timeAdded;
       });
       return {
         ...state,

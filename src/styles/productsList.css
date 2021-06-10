@@ -17,6 +17,30 @@
   font-size: 42px;
   text-transform: capitalize;
 }
+/* Search Bar */
+.products-section .search-bar {
+  margin: 50px 0;
+}
+.products-section .search-bar input[type="text"] {
+  width: 130px;
+  box-sizing: border-box;
+  color: #1d1f22;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-image: url("../icons//Search.png");
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+  outline: none;
+}
+
+.products-section .search-bar input[type="text"]:focus {
+  width: 300px;
+}
 /* Products list */
 .products-container {
   display: grid;

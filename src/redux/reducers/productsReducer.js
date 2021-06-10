@@ -8,7 +8,7 @@ import {
 const initialState = {
   products: [],
   currencyIndex: 0,
-  currentCategory: "",
+  currentCategory: "all",
   loading: true,
 };
 const productsReducer = (state = initialState, action) => {
@@ -26,12 +26,11 @@ const productsReducer = (state = initialState, action) => {
           id: index + 1,
         };
       });
-      const allCategories = products.map((product) => product.category);
-      const uniqueCategories = [...new Set(allCategories)];
+
       return {
         ...state,
         products: productsWithId,
-        currentCategory: uniqueCategories[0],
+        currentCategory: "all",
         currencyIndex: 0,
       };
     case STOP_LOADING:

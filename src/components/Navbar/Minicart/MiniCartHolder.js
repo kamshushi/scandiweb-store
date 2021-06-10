@@ -1,14 +1,21 @@
 import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types";
 // Components
 import MiniCart from "./MiniCart";
 // Redux
 import { connect } from "react-redux";
+import { CHANGE_SHOW_MINICART } from "../../../redux/actionTypes";
 // Icons
-import CartLogo from "../icons/Cart.svg";
+import CartLogo from "../../../icons/Cart.svg";
 
 class MiniCartHolder extends Component {
-  constructor(props) {
-    super(props);
+  // Hide scroll on opening the minicart
+  componentDidUpdate() {
+    if (this.props.showMiniCart) {
+      // document.body.style = "overflow:hidden";
+    } else {
+      document.body.style = "overflow:auto";
+    }
   }
   render() {
     const { productsInCart, showMiniCart, toggleMiniCart } = this.props;
@@ -30,16 +37,29 @@ class MiniCartHolder extends Component {
           )}
         </div>
         {showMiniCart && <MiniCart />}
+        <div
+          className={`minicart-overlay ${showMiniCart ? "show-overlay" : ""}`}
+        ></div>
       </Fragment>
     );
   }
 }
-
+MiniCartHolder.propTypes = {
+  productsInCart: PropTypes.array.isRequired,
+  showMiniCart: PropTypes.bool.isRequired,
+  toggleMiniCart: PropTypes.func.isRequired,
+};
 const mapStateToProps = (state) => {
   return {
     showMiniCart: state.UI.showMiniCart,
     productsInCart: state.cart.products,
   };
 };
-
-export default connect(mapStateToProps)(MiniCartHolder);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleMiniCart: (value) => {
+      dispatch({ type: CHANGE_SHOW_MINICART, payload: value });
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(MiniCartHolder);

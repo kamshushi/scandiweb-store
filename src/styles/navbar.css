@@ -125,8 +125,9 @@
 }
 
 .nav-container .minicart-overlay {
+  position: fixed;
   background-color: var(--clr-minicart-overlay);
-  top: 80px;
+  top: 88px;
   left: 0;
   right: 0;
   z-index: 3;
@@ -186,7 +187,7 @@
   }
 
   .nav-container .minicart-overlay {
-    top: 63px;
+    top: 74px;
   }
 }
 @media (max-width: 400px) {

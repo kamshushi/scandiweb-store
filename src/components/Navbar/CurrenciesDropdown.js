@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 // redux
-import { CHANGE_SHOW_CURRENCIES, SET_CURRENCY } from "../redux/actionTypes";
+import { CHANGE_SHOW_CURRENCIES, SET_CURRENCY } from "../../redux/actionTypes";
 // util
-import getCurrencySymbol from "../util/getCurrencySymbol";
+import getCurrencySymbol from "../../util/getCurrencySymbol";
 
 export class CurrenciesDropdown extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     //   props data
     const {
@@ -50,6 +48,14 @@ export class CurrenciesDropdown extends Component {
   }
 }
 
+CurrenciesDropdown.propTypes = {
+  toggleCurrencies: PropTypes.func.isRequired,
+  showCurrencies: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+  currencies: PropTypes.array.isRequired,
+  currencyIndex: PropTypes.number.isRequired,
+  setCurrency: PropTypes.func.isRequired,
+};
 //mapping state and dispatch actions to props
 const mapStateToProps = (state) => {
   const { products } = state.products;
@@ -65,8 +71,12 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    setCurrency: (e) =>
-      dispatch({ type: SET_CURRENCY, payload: parseInt(e.target.id) }),
+    setCurrency: (e) => {
+      dispatch({ type: SET_CURRENCY, payload: parseInt(e.target.id) });
+    },
+    toggleCurrencies: (value) => {
+      dispatch({ type: CHANGE_SHOW_CURRENCIES, payload: value });
+    },
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CurrenciesDropdown);
