@@ -19,7 +19,7 @@ const cartReducer = (state = initialState, action) => {
     case CHANGE_QUANTITY:
       const products = state.products;
       for (let i in products) {
-        if (products[i].id === action.payload.product.id) {
+        if (products[i].timeAdded === action.payload.product.timeAdded) {
           products[i].quantity = action.payload.newQuantity;
           break;
         }

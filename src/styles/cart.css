@@ -31,11 +31,12 @@
   font-size: 35px;
   margin: 65px 0;
 }
+
 /*Items container */
 .cart-section .item-container {
   border-top: 1px solid #e5e5e5;
   padding-top: 20px;
-  margin-bottom: -20px;
+  margin-bottom: 10px;
   position: relative;
   min-height: 215px;
 }
@@ -94,6 +95,7 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   font-size: 29px;
+  color: #fff;
 }
 .cart-section .item-container .item-info .options .option.active {
   background-color: var(--clr-font);
@@ -157,7 +159,14 @@
   .cart-section .item-container .item-info .attr-container {
     margin-top: 30px;
   }
-  .cart-section .item-container .item-info .options .option {
+  .cart-section .item-container .item-info .attr-container {
+    margin: 0;
+  }
+  .cart-section .item-container .item-info .options {
+    margin-bottom: 15px;
+  }
+  .cart-section .item-container .item-info .options .option,
+  .cart-section .item-container .item-info .options .option.swatch {
     min-width: 45px;
     height: 40px;
   }
@@ -175,10 +184,18 @@
     font-size: 20px;
   }
 }
+
 @media (max-width: 600px) {
+  .cart-section .item-container {
+    margin-bottom: 0px;
+  }
   .cart-section .cart-header {
     font-size: 20px;
     margin-bottom: 20px;
+  }
+  .cart-section > h3 {
+    font-size: 13px;
+    margin-top: 30px;
   }
   .cart-section .item-container .item-info {
     width: 50%;
@@ -189,13 +206,27 @@
   .cart-section .item-container .item-info .attr-container h3 {
     font-size: 13px;
   }
-  .cart-section .item-container .item-info p {
+  .cart-section .item-container .item-info .attr-container {
+    margin: 0;
   }
-  .cart-section .item-container .item-info .options .option {
+  .cart-section .item-container .item-info .options {
+    margin-bottom: 5px;
+  }
+  .cart-section .item-container .item-info .options .option,
+  .cart-section .item-container .item-info .options .option.swatch {
     min-width: 20px;
     height: 20px;
     font-size: 5px;
     margin-bottom: 15px;
+    padding: 0;
+  }
+  .cart-section
+    .item-container
+    .item-info
+    .options
+    .option.swatch.active
+    .selected-overlay {
+    font-size: 10px;
   }
   .cart-section .item-container .item-gallery {
     width: 50%;

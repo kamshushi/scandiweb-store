@@ -55,7 +55,7 @@
 /* Actions */
 
 .nav-container .actions {
-  margin: 25px 0 0 40px;
+  margin: 25px 0 0 60px;
   line-height: 1;
 }
 /* Light Mode icon */
@@ -171,13 +171,17 @@
     font-size: 12px;
     height: 63px;
   }
+
   .nav-container .categories div {
     padding-bottom: 20px;
   }
   .nav-container .logo img {
     width: 35px;
   }
-
+  .nav-container .actions {
+    margin: 25px 0 0 30px;
+    line-height: 1;
+  }
   .nav-container .currency-container .currencies {
     left: -50px;
     padding-right: 5px;

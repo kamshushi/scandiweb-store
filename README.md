@@ -4,7 +4,6 @@ This project is an online store that allows user to add products to cart using d
 
 ## Features
 
-- User is able to add .
 - The app has a product listing page, product description page and a cart page.
 - The app uses redux to manage the app state.
 - User has the ability to to add/remove products and change their amounts in cart.
@@ -21,10 +20,10 @@ This project is an online store that allows user to add products to cart using d
 - Added Dark Mode
 - User can't add a product to cart unless he selected a value for all of the product's available attributes.
 - User can't add a product that is out of stock to cart.
-- User can't put an item in the cart more than once
-- Made a carousel without extra libraries
+- Made a carousel without external libraries
 - Added an id for each product to be more convenient to identify.
-- Didn't add all attributes for the product in the minicart as it's inconvenient and takes unused space
+- Didn't add all attributes for the product in the minicart as it's inconvenient and takes extra space
+- Added a functional search bar
 
 ## Before Installation
 

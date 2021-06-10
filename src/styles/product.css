@@ -110,6 +110,7 @@
   align-items: center;
   background-color: rgba(0, 0, 0, 0.4);
   font-size: 29px;
+  color: #fff;
 }
 .product-grid-container .product-info .options .option.active {
   background-color: var(--clr-font);

@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 export class QuantityChanger extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const { changeQuantity, product, quantity } = this.props;
     return (

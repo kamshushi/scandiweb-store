@@ -10,7 +10,7 @@ import {
   CHANGE_SHOW_CURRENCIES,
 } from "./redux/actionTypes";
 //components
-import Navbar from "./components/Navbar/Navbar";
+import Navbar from "./components/navbar/Navbar";
 import ProductsList from "./components/productsList/ProductsList";
 import Product from "./components/product/Product";
 import Cart from "./components/cart/Cart";
@@ -20,9 +20,6 @@ import "./App.css";
 //App Container
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
   // Hide dropdown menus on clicking anywhere in the screen
   hideDropDownsOnScreenClick = (e) => {
     const { showCurrencies, showMiniCart } = this.props;

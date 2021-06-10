@@ -1,20 +1,15 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class SearchBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchValue: "",
-    };
-  }
   render() {
+    const { setSearchTerm } = this.props;
     return (
       <div className="search-bar">
         <input
-          value={this.state.searchValue}
-          onChange={(e) =>
-            this.setState({ ...this.state, searchValue: e.target.value })
-          }
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
           type="text"
           name="search"
           placeholder="Search.."
@@ -23,5 +18,8 @@ class SearchBar extends Component {
     );
   }
 }
+SearchBar.propTypes = {
+  setSearchTerm: PropTypes.func.isRequired,
+};
 
 export default SearchBar;

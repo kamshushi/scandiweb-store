@@ -24,56 +24,60 @@ class Cart extends Component {
     return (
       <section className="cart-section">
         <h1 className="cart-header">cart</h1>
-        {products.map((product, productIndex) => {
-          const {
-            quantity,
-            userSelection,
-            name,
-            gallery,
-            attributes,
-            prices,
-            timeAdded,
-          } = product;
-          return (
-            <div key={timeAdded} className="item-container">
-              {/* item info */}
+        {products.length > 0 ? (
+          products.map((product, productIndex) => {
+            const {
+              quantity,
+              userSelection,
+              name,
+              gallery,
+              attributes,
+              prices,
+              timeAdded,
+            } = product;
+            return (
+              <div key={timeAdded} className="item-container">
+                {/* item info */}
 
-              {/* Header */}
-              <div className="item-info">
-                <h1>{name.split(" ")[0]}</h1>
-                {name.split(" ").length !== 1 && (
-                  <h2>{name.substr(name.indexOf(" ") + 1)}</h2>
-                )}
-                {/* Price */}
-                <p>{`${getCurrencySymbol(prices[currencyIndex].currency)} ${(
-                  prices[currencyIndex].amount * quantity
-                ).toFixed(2)}`}</p>
-                {/* Attributes */}
-                {attributes.map((attribute) => {
-                  return (
-                    <CartProductAttributes
-                      key={attribute.id}
-                      attribute={attribute}
-                      userSelection={userSelection}
-                    />
-                  );
-                })}
+                {/* Header */}
+                <div className="item-info">
+                  <h1>{name.split(" ")[0]}</h1>
+                  {name.split(" ").length !== 1 && (
+                    <h2>{name.substr(name.indexOf(" ") + 1)}</h2>
+                  )}
+                  {/* Price */}
+                  <p>{`${getCurrencySymbol(prices[currencyIndex].currency)} ${(
+                    prices[currencyIndex].amount * quantity
+                  ).toFixed(2)}`}</p>
+                  {/* Attributes */}
+                  {attributes.map((attribute) => {
+                    return (
+                      <CartProductAttributes
+                        key={attribute.id}
+                        attribute={attribute}
+                        userSelection={userSelection}
+                      />
+                    );
+                  })}
+                </div>
+                {/* Carousel and quantity changer */}
+                <div className="item-gallery">
+                  {/* Quantity Changer */}
+                  <QuantityChanger
+                    changeQuantity={changeQuantity}
+                    product={product}
+                    quantity={quantity}
+                  />
+                  {/* Carousel */}
+                  <Carousel gallery={gallery} productIndex={productIndex} />
+                </div>
+                <div className="clearfix"></div>
               </div>
-              {/* Carousel and quantity changer */}
-              <div className="item-gallery">
-                {/* Quantity Changer */}
-                <QuantityChanger
-                  changeQuantity={changeQuantity}
-                  product={product}
-                  quantity={quantity}
-                />
-                {/* Carousel */}
-                <Carousel gallery={gallery} productIndex={productIndex} />
-              </div>
-              <div className="clearfix"></div>
-            </div>
-          );
-        })}
+            );
+          })
+        ) : (
+          <h3>No products in cart</h3>
+        )}
       </section>
     );
   }

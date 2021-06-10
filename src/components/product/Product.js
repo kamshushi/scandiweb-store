@@ -45,6 +45,9 @@ class Product extends Component {
       currentImageIndex: e.target.id,
     });
   };
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
   render() {
     const { products, currencyIndex, loading, addToCart } = this.props;
     const { infoSelected } = this.state;

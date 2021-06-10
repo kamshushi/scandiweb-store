@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 class CartProductAttributes extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const {
       userSelection,

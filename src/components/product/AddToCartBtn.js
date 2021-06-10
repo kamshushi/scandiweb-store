@@ -22,6 +22,7 @@ export class AddToCartBtn extends Component {
               onClick={() => {
                 addToCart(currentProductWithInfo);
                 displayMiniCart();
+                window.scrollTo(0, 0);
               }}
               className="add-to-cart"
             >

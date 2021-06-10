@@ -1,61 +1,59 @@
 import React, { Component } from "react";
-import CircleIcon from "../../icons/Circle Icon.svg";
-import { Link } from "react-router-dom";
+
 import PropTypes from "prop-types";
 // Components
 import SearchBar from "./SearchBar";
+import ProductInList from "./ProductInList";
 //Redux
 import { connect } from "react-redux";
-//util
-import getCurrencySymbol from "../../util/getCurrencySymbol";
 //styles
 import "../../styles/productsList.css";
 
 class ProductsList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchTerm: "",
+    };
+  }
+  setSearchTerm = (value) => {
+    this.setState({
+      ...this.state,
+      searchTerm: value,
+    });
+  };
   render() {
-    const { products, loading, currentCategory, currencyIndex } = this.props;
-    //filtering products according to current category
-    const ProductsInCategory = !loading
-      ? products.filter((product) => {
-          if (currentCategory !== "all") {
-            return product.category === currentCategory;
-          } else {
-            return product;
-          }
-        })
-      : [];
+    const { productsInCategory, loading, currencyIndex, currentCategory } =
+      this.props;
+    const { searchTerm } = this.state;
+    // filtering products according to search term
+    const filteredProducts = productsInCategory.filter((product) => {
+      if (searchTerm !== "") {
+        return product.name.toLowerCase().includes(searchTerm.toLowerCase());
+      } else {
+        return product;
+      }
+    });
     return (
       <section className="products-section">
         <h1 className="main-header">{currentCategory}</h1>
-        <SearchBar />
+        <SearchBar setSearchTerm={this.setSearchTerm} />
         <div className="products-container">
           {!loading ? (
-            // Products list
-            ProductsInCategory.map((product) => {
-              const { id, name, inStock, gallery, prices } = product;
-              const currencySymbol = getCurrencySymbol(
-                prices[currencyIndex].currency
-              );
-              return (
-                <div key={id} className="product-container">
-                  <Link to={`/product/${id}`}>
-                    <div className={`out-of-stock ${!inStock && "show"}`}>
-                      <p>out of stock</p>
-                    </div>
-                  </Link>
-                  <Link to={`/product/${id}`}>
-                    <div className="img-holder">
-                      <img className="img" src={gallery[0]} alt="img" />
-                      <img className="icon" src={CircleIcon} alt="img" />
-                    </div>
-                    <p className="product-name">{name}</p>
-                    <p className="product-price">
-                      {`${currencySymbol} ${prices[currencyIndex].amount}`}
-                    </p>
-                  </Link>
-                </div>
-              );
-            })
+            filteredProducts.length > 0 ? (
+              // Products list
+              filteredProducts.map((product) => {
+                return (
+                  <ProductInList
+                    key={product.id}
+                    product={product}
+                    currencyIndex={currencyIndex}
+                  />
+                );
+              })
+            ) : (
+              <h3 className="product-not-found">No products were found</h3>
+            )
           ) : (
             <p>Loading...</p>
           )}
@@ -66,16 +64,26 @@ class ProductsList extends Component {
 }
 // PropTypes
 ProductsList.propTypes = {
-  products: PropTypes.array.isRequired,
+  productsInCategory: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
   currentCategory: PropTypes.string.isRequired,
   currencyIndex: PropTypes.number.isRequired,
 };
 //mapping state and dispatch actions to props
 const mapStateToProps = (state) => {
+  const { products, loading, currentCategory } = state.products;
+  const productsInCategory = !loading
+    ? products.filter((product) => {
+        if (currentCategory !== "all") {
+          return product.category === currentCategory;
+        } else {
+          return product;
+        }
+      })
+    : [];
   return {
-    products: state.products.products,
-    loading: state.products.loading,
+    productsInCategory: productsInCategory,
+    loading: loading,
     currentCategory: state.products.currentCategory,
     currencyIndex: state.products.currencyIndex,
   };
