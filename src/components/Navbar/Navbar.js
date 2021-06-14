@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 // Components
 import CurrenciesDropDown from "./CurrenciesDropdown";
-import MiniCartHolder from "./minicart/MiniCartHolder";
+import MiniCartHolder from "./Minicart/MiniCartHolder";
 import NavCategories from "./NavCategories";
 import ThemeSwitcher from "./ThemeSwitcher";
 //icons

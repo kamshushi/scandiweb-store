@@ -10,7 +10,7 @@ import {
   CHANGE_SHOW_CURRENCIES,
 } from "./redux/actionTypes";
 //components
-import Navbar from "./components/navbar/Navbar";
+import Navbar from "./components/Navbar/Navbar";
 import ProductsList from "./components/productsList/ProductsList";
 import Product from "./components/product/Product";
 import Cart from "./components/cart/Cart";
