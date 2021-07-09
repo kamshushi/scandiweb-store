@@ -38,7 +38,6 @@ class Cart extends PureComponent {
             return (
               <div key={timeAdded} className="item-container">
                 {/* item info */}
-
                 {/* Header */}
                 <div className="item-info">
                   <h1>{name.split(" ")[0]}</h1>
