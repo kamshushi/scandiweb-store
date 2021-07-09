@@ -64,6 +64,9 @@
   overflow: hidden;
   opacity: 0;
 }
+.product-container .img-holder .icon.hide {
+  display: none;
+}
 
 .product-container .img-holder:hover .icon {
   opacity: 1;

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
 // Components
 import CurrenciesDropDown from "./CurrenciesDropdown";
@@ -10,7 +10,7 @@ import StoreLogo from "../../icons/Brand icon.svg";
 // Styles
 import "../../styles/navbar.css";
 
-class Navbar extends Component {
+class Navbar extends PureComponent {
   render() {
     return (
       <nav className="nav-container">

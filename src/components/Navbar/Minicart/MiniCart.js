@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+// components
+import CartProductAttributes from "../../cart/CartProductAttributes";
 //redux
 import { connect } from "react-redux";
 import {
@@ -13,7 +15,7 @@ import "../../../styles/miniCart.css";
 //util
 import getCurrencySymbol from "../../../util/getCurrencySymbol";
 import calculateTotal from "../../../util/calculateTotal";
-class MiniCart extends Component {
+class MiniCart extends PureComponent {
   render() {
     const {
       products,
@@ -45,9 +47,7 @@ class MiniCart extends Component {
             quantity,
             timeAdded,
           } = product;
-          const productPrice = (
-            prices[currencyIndex].amount * quantity
-          ).toFixed(2);
+          const productPrice = prices[currencyIndex].amount.toFixed(2);
 
           return (
             <div key={timeAdded} className="product">
@@ -58,7 +58,7 @@ class MiniCart extends Component {
                   <p>{name.substr(name.indexOf(" ") + 1)}</p>
                 )}
                 <strong>{`${currentCurrency} ${productPrice}`}</strong>
-                {attributes[0] && (
+                {/* {attributes[0] && (
                   <ul className="attributes">
                     {attributes[0].items.map((item) => (
                       <li
@@ -73,7 +73,33 @@ class MiniCart extends Component {
                       </li>
                     ))}
                   </ul>
-                )}
+                )} */}
+                {attributes.map((attribute) => {
+                  return (
+                    <ul key={attribute.id} className="attributes">
+                      <h6>{attribute.name}</h6>
+                      {attribute.items.map((item) => (
+                        <li
+                          key={item.id}
+                          className={`
+                          ${attribute.type === "swatch" ? "swatch" : ""}
+                          ${
+                            userSelection[attribute.name] === item.value
+                              ? "active"
+                              : ""
+                          }`}
+                          style={
+                            attribute.type === "swatch"
+                              ? { backgroundColor: item.value }
+                              : {}
+                          }
+                        >
+                          {attribute.type === "swatch" ? "" : item.value}
+                        </li>
+                      ))}
+                    </ul>
+                  );
+                })}
               </div>
               {/* Image and quantity buttons */}
               <div className="product-rightside">

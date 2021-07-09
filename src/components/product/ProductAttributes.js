@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 
-export class ProductAttributes extends Component {
+export class ProductAttributes extends PureComponent {
   render() {
     const {
       infoSelected,

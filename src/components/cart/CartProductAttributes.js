@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 
-class CartProductAttributes extends Component {
+class CartProductAttributes extends PureComponent {
   render() {
     const {
       userSelection,
@@ -12,22 +12,23 @@ class CartProductAttributes extends Component {
         <h3>{`${name}:`}</h3>
         <ul className="options">
           {items.map((item) => {
+            const { id, value } = item;
             return (
               <li
-                key={item.id}
+                key={id}
                 className={`option ${type === "swatch" ? "swatch" : ""} ${
-                  userSelection[name] === item.value ? "active" : ""
+                  userSelection[name] === value ? "active" : ""
                 }`}
-                style={type === "swatch" ? { backgroundColor: item.value } : {}}
+                style={type === "swatch" ? { backgroundColor: value } : {}}
               >
                 {type === "swatch" ? (
-                  userSelection[name] === item.value ? (
+                  userSelection[name] === value ? (
                     <div className="selected-overlay">✓</div>
                   ) : (
                     ""
                   )
                 ) : (
-                  item.value
+                  value
                 )}
               </li>
             );

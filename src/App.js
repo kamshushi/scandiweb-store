@@ -1,5 +1,5 @@
 //React stuff
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 //Redux
 import { connect } from "react-redux";
@@ -19,7 +19,7 @@ import "./App.css";
 
 //App Container
 
-class App extends Component {
+class App extends PureComponent {
   // Hide dropdown menus on clicking anywhere in the screen
   hideDropDownsOnScreenClick = (e) => {
     const { showCurrencies, showMiniCart } = this.props;
@@ -29,7 +29,7 @@ class App extends Component {
       }
       if (
         !e.target.matches(
-          ".cart-icon, .cart-icon img , .nav-container , .minicart-container , .minicart-container *, .cart-icon .num-of-products,.product-grid-container .product-info .add-to-cart "
+          ".cart-icon, .cart-icon img , .nav-container , .minicart-container , .minicart-container *, .cart-icon .num-of-products,.product-grid-container .product-info .add-to-cart, .product-container .img-holder .icon "
         )
       ) {
         store.dispatch({ type: CHANGE_SHOW_MINICART, payload: false });

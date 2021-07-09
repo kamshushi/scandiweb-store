@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 // Components
 import ProductAttributes from "./ProductAttributes";
@@ -6,12 +6,13 @@ import SmallImages from "./SmallImages";
 import AddToCartBtn from "./AddToCartBtn";
 // redux
 import { connect } from "react-redux";
-import { ADD_TO_CART } from "../../redux/actionTypes";
 //styles
 import "../../styles/product.css";
 //util
 import getCurrencySymbol from "../../util/getCurrencySymbol";
-class Product extends Component {
+import parse from "html-react-parser";
+
+class Product extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,7 +50,7 @@ class Product extends Component {
     window.scrollTo(0, 0);
   }
   render() {
-    const { products, currencyIndex, loading, addToCart } = this.props;
+    const { products, currencyIndex, loading } = this.props;
     const { infoSelected } = this.state;
     // Getting the product in the page
     const currentProduct =
@@ -105,13 +106,9 @@ class Product extends Component {
                 inStock={inStock}
                 infoSelected={infoSelected}
                 attributes={attributes}
-                addToCart={addToCart}
                 currentProductWithInfo={currentProductWithInfo}
               />
-              <div
-                className="description"
-                dangerouslySetInnerHTML={{ __html: description }}
-              ></div>
+              <div className="description">{parse(description)}</div>
             </div>
           </div>
         ) : (
@@ -127,7 +124,6 @@ Product.propTypes = {
   products: PropTypes.array.isRequired,
   currencyIndex: PropTypes.number.isRequired,
   productsInCart: PropTypes.array.isRequired,
-  addToCart: PropTypes.func.isRequired,
 };
 // Map state and dispatch to props
 const mapStateToProps = (state) => {
@@ -138,10 +134,5 @@ const mapStateToProps = (state) => {
     productsInCart: state.cart.products,
   };
 };
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addToCart: (product) => dispatch({ type: ADD_TO_CART, payload: product }),
-  };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Product);
+export default connect(mapStateToProps)(Product);

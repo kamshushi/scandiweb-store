@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 // icons
 import rightArrow from "../../icons/right arrow.svg";
 import leftArrow from "../../icons/left arrow.svg";
 
-class Carousel extends Component {
+class Carousel extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {};

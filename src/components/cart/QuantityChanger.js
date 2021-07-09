@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 
-export class QuantityChanger extends Component {
+export class QuantityChanger extends PureComponent {
   render() {
     const { changeQuantity, product, quantity } = this.props;
     return (

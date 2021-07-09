@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 // Redux
 import { connect } from "react-redux";
 import { SET_CATEGORY } from "../../redux/actionTypes";
 
-class NavCategories extends Component {
+class NavCategories extends PureComponent {
   render() {
     const { loading, categories, currentCategory, setCategory } = this.props;
     return (

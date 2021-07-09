@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { PureComponent, Fragment } from "react";
 import PropTypes from "prop-types";
 // Components
 import MiniCart from "./MiniCart";
@@ -8,7 +8,7 @@ import { CHANGE_SHOW_MINICART } from "../../../redux/actionTypes";
 // Icons
 import CartLogo from "../../../icons/Cart.svg";
 
-class MiniCartHolder extends Component {
+class MiniCartHolder extends PureComponent {
   // Hide scroll on opening the minicart
   componentDidUpdate() {
     if (this.props.showMiniCart) {
@@ -17,6 +17,13 @@ class MiniCartHolder extends Component {
       document.body.style = "overflow:auto";
     }
   }
+  calculateTotalProducts = (products) => {
+    let total = 0;
+    products.forEach((product) => {
+      total += product.quantity;
+    });
+    return total;
+  };
   render() {
     const { productsInCart, showMiniCart, toggleMiniCart } = this.props;
     return (
@@ -32,7 +39,7 @@ class MiniCartHolder extends Component {
               onClick={() => toggleMiniCart(!showMiniCart)}
               className="num-of-products"
             >
-              {productsInCart.length}
+              {this.calculateTotalProducts(productsInCart)}
             </span>
           )}
         </div>

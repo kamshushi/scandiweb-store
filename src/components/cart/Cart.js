@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 // components
 import CartProductAttributes from "./CartProductAttributes";
@@ -14,7 +14,7 @@ import "../../styles/cart.css";
 //slider
 import "../../styles/carousel.css";
 
-class Cart extends Component {
+class Cart extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {};
@@ -46,9 +46,9 @@ class Cart extends Component {
                     <h2>{name.substr(name.indexOf(" ") + 1)}</h2>
                   )}
                   {/* Price */}
-                  <p>{`${getCurrencySymbol(prices[currencyIndex].currency)} ${(
-                    prices[currencyIndex].amount * quantity
-                  ).toFixed(2)}`}</p>
+                  <p>{`${getCurrencySymbol(
+                    prices[currencyIndex].currency
+                  )} ${prices[currencyIndex].amount.toFixed(2)}`}</p>
                   {/* Attributes */}
                   {attributes.map((attribute) => {
                     return (

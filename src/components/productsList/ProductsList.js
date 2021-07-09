@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 
 import PropTypes from "prop-types";
 // Components
@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 //styles
 import "../../styles/productsList.css";
 
-class ProductsList extends Component {
+class ProductsList extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

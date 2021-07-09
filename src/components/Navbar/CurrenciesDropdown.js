@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 // redux
@@ -6,7 +6,7 @@ import { CHANGE_SHOW_CURRENCIES, SET_CURRENCY } from "../../redux/actionTypes";
 // util
 import getCurrencySymbol from "../../util/getCurrencySymbol";
 
-export class CurrenciesDropdown extends Component {
+export class CurrenciesDropdown extends PureComponent {
   render() {
     //   props data
     const {

@@ -1,10 +1,10 @@
-import React, { Component, Fragment } from "react";
+import React, { PureComponent, Fragment } from "react";
 import PropTypes from "prop-types";
 // redux
 import { connect } from "react-redux";
-import { CHANGE_SHOW_MINICART } from "../../redux/actionTypes";
+import { CHANGE_SHOW_MINICART, ADD_TO_CART } from "../../redux/actionTypes";
 
-export class AddToCartBtn extends Component {
+export class AddToCartBtn extends PureComponent {
   render() {
     const {
       inStock,
@@ -52,6 +52,7 @@ export class AddToCartBtn extends Component {
     );
   }
 }
+
 AddToCartBtn.propTypes = {
   inStock: PropTypes.bool.isRequired,
   infoSelected: PropTypes.object.isRequired,
@@ -60,15 +61,14 @@ AddToCartBtn.propTypes = {
   currentProductWithInfo: PropTypes.object.isRequired,
   displayMiniCart: PropTypes.func.isRequired,
 };
-const mapStateToProps = (state) => {
-  return {};
-};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     displayMiniCart: (e) => {
       dispatch({ type: CHANGE_SHOW_MINICART, payload: true });
     },
+    addToCart: (product) => dispatch({ type: ADD_TO_CART, payload: product }),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddToCartBtn);
+export default connect(null, mapDispatchToProps)(AddToCartBtn);
