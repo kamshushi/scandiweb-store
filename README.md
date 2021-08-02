@@ -27,7 +27,7 @@ This project is an online store that allows user to add products to cart using d
 
 ## Before Installation
 
-Make sure you have the GraphQL endpoint up and running before starting the react server which is available at this link (https://www.figma.com/file/MSyCAqVy1UgNap0pvqH6H3/Junior-Frontend-Test-Designs-Public?node-id=0%3A1)
+Make sure you have the GraphQL endpoint up and running before starting the react server which is available at this link (https://github.com/scandiweb/junior-react-endpoint.git)
 
 ## Available Scripts
 
